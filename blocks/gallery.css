@@ -1,0 +1,37 @@
+.gallery__content {
+  max-width: 880px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+  column-gap: 17px;
+  row-gap: 20px;
+  margin: 0 auto 67px auto;
+}
+
+.gallery__card {
+  max-width: 282px;
+  max-height: 361px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card_photo {
+  max-width: 282px;
+  max-height: 282px;
+}
+.card__title-icon {
+  display: flex;
+  align-items: center;
+}
+.card__name {
+  margin-left: 21px;
+  font-family: Inter;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.card__icon {
+  max-width: 21px;
+  max-height: 19px;
+  margin: 0 15px 0 auto;
+}

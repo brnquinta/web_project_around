@@ -1,0 +1,15 @@
+.footer__content {
+  display: flex;
+  max-width: 880px;
+  justify-content: flex-start;
+  margin: 0 auto 60px auto;
+}
+
+.footer__copy {
+  color: #545454;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
