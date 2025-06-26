@@ -24,14 +24,26 @@
 }
 .card__name {
   margin-left: 21px;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-weight: 900;
   font-size: 24px;
   line-height: 100%;
   letter-spacing: 0%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.card__button {
+  max-width: 26px;
+  margin: 0 15px 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.card__icon:focus {
+  background-image: url("images/lago_braies.png");
 }
 .card__icon {
   max-width: 21px;
   max-height: 19px;
-  margin: 0 15px 0 auto;
+  margin: 0;
 }

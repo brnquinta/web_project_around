@@ -52,10 +52,7 @@
   margin-left: auto;
   border: 2px solid #ffffff;
 }
-.profile__button-add {
-  max-width: 150px;
-  max-height: 50px;
-}
+
 .profile__button-content {
   display: flex;
   justify-content: center;

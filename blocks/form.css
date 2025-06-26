@@ -1,0 +1,24 @@
+.form__content {
+  display: none;
+  position: absolute;
+  top: 195px;
+  left: 452px;
+  max-width: 430px;
+  max-height: 330px;
+  width: 430px;
+  height: 330px;
+  background-color: white;
+  justify-self: center;
+  align-self: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  z-index: 999;
+  margin-left: auto;
+}
+.form__content.visible {
+  display: block;
+}
+.form__items {
+  justify-self: center;
+  align-self: center;
+}

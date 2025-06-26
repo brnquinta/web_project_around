@@ -1,4 +1,14 @@
 .page {
   background-color: black;
-  justify-content: center;
+}
+
+.page__content {
+  max-width: 880px;
+  max-height: auto;
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
 }
