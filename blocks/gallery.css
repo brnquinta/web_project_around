@@ -38,6 +38,10 @@
   margin: 0 15px 0 auto;
   display: flex;
   justify-content: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 .card__icon:focus {
   background-image: url("images/lago_braies.png");

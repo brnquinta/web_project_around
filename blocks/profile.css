@@ -41,6 +41,7 @@
   border: 1px solid #ffffff;
   background-color: black;
   color: white;
+  cursor: pointer;
 }
 .profile__edit-icon {
   max-width: 10px;
@@ -51,6 +52,7 @@
   background-color: black;
   margin-left: auto;
   border: 2px solid #ffffff;
+  cursor: pointer;
 }
 
 .profile__button-content {

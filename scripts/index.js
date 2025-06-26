@@ -31,6 +31,11 @@ const form_item = document.querySelector(".form__item");
 const edit_name = form_section.querySelector(".form__name");
 const edit_profession = form_section.querySelector(".form__profession");
 
+//botão submit formulário
+const button_submit = form_section.querySelector(".form__button-submit");
+
+// função toggle do formulário
+
 edit_button.addEventListener("click", () => {
   form_overlay.classList.toggle("visible");
   form_window.classList.toggle("visible");
@@ -41,4 +46,20 @@ form_close_button.addEventListener("click", () => {
   form_window.classList.remove("visible");
 });
 
-console.log(form_close_button);
+console.log(edit_name);
+
+// Botão subimt do formulário
+
+button_submit.addEventListener("click", () => {
+  let name = edit_name.value;
+  let profession = edit_profession.value;
+
+  if (name && profession !== "") {
+    profile_name.textContent = name;
+    profile_profession.textContent = profession;
+    form_overlay.classList.remove("visible");
+    form_window.classList.remove("visible");
+  } else {
+    alert("Preencha todos os campos!");
+  }
+});
