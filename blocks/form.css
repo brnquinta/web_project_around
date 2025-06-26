@@ -1,23 +1,62 @@
+.form__overlay {
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+}
+
+.form__container {
+  display: flex;
+  width: auto;
+  height: auto;
+  position: fixed;
+  justify-self: center;
+  align-self: center;
+}
+
 .form__content {
   display: none;
-  position: absolute;
-  top: 195px;
-  left: 452px;
   max-width: 430px;
   max-height: 330px;
   width: 430px;
   height: 330px;
   background-color: white;
-  justify-self: center;
-  align-self: center;
   border: 1px solid black;
   border-radius: 20px;
   z-index: 999;
-  margin-left: auto;
+  margin: auto;
 }
+
 .form__content.visible {
   display: block;
 }
+.form__overlay.visible {
+  display: flex;
+  justify-content: center;
+}
+
+.form__close-button {
+  position: fixed;
+  max-width: 40px;
+  max-height: 40px;
+  top: 200px;
+  left: 725px;
+  transform: rotate(45deg);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+}
+
+.form__close-icon {
+  margin: 0;
+  justify-self: center;
+  align-self: center;
+}
+
 .form__items {
   justify-self: center;
   align-self: center;

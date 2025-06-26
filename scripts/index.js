@@ -12,14 +12,33 @@ cards.forEach((card) => {
     }
   });
 });
-const form__window = document.querySelector(".form__content");
+
+// botão de edição
 const edit_button = document.querySelector(".profile__button-edit");
-let profile__name = document.querySelector(".profile__name");
-let profile__profession = document.querySelector(".profile__profession");
-const form = document.querySelector(".form__item");
-let edit_name = form.querySelector(".form__name");
-let edit_profession = form.querySelector(".form__profession");
+
+// janela de formulário
+const form_section = document.querySelector(".form");
+const form_overlay = form_section.querySelector(".form__overlay");
+const form_window = form_overlay.querySelector(".form__content");
+const form_close_button = form_section.querySelector(".form__close-button");
+
+// perfil cadastrado
+const profile_name = document.querySelector(".profile__name");
+const profile_profession = document.querySelector(".profile__profession");
+
+// inputs do formulário
+const form_item = document.querySelector(".form__item");
+const edit_name = form_section.querySelector(".form__name");
+const edit_profession = form_section.querySelector(".form__profession");
 
 edit_button.addEventListener("click", () => {
-  form__window.classList.toggle("visible");
+  form_overlay.classList.toggle("visible");
+  form_window.classList.toggle("visible");
 });
+
+form_close_button.addEventListener("click", () => {
+  form_overlay.classList.remove("visible");
+  form_window.classList.remove("visible");
+});
+
+console.log(form_close_button);
