@@ -12,3 +12,11 @@
   position: relative;
   height: 100vh;
 }
+
+@media screen and (max-width: 320px) {
+  .page__content {
+    max-width: 320px;
+    display: flex;
+    justify-content: center;
+  }
+}

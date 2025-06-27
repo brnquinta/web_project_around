@@ -87,6 +87,10 @@
   color: white;
   cursor: pointer;
 }
+
+.form__button-submit:hover {
+  opacity: 80%;
+}
 .form__overlay.visible {
   display: flex;
   justify-content: center;
