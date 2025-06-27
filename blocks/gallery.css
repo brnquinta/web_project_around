@@ -56,7 +56,6 @@
   .gallery__content {
     display: flex;
     flex-direction: column;
-
     max-width: 320px;
     justify-self: center;
     margin-left: 19px;

@@ -70,7 +70,7 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto 0 auto;
-    padding-bottom: 36px;
+    padding-bottom: 36;
   }
   .profile_picture {
     max-width: 168.75px;
