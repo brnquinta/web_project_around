@@ -28,3 +28,6 @@
     margin: 0 auto 32px 27px;
   }
 }
+
+@media screen and (max-width: 800px) {
+}

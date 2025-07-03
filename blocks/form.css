@@ -1,5 +1,6 @@
-.form__overlay {
-  display: none;
+.form__overlay.visible {
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 100%;
   top: 0;
@@ -15,6 +16,7 @@
   position: fixed;
   justify-self: center;
   align-self: center;
+  flex-direction: column;
 }
 
 .form__content {
@@ -81,7 +83,7 @@
   height: 50.15px;
   max-width: 358px;
   max-height: 50.15px;
-  margin-left: 36px;
+  margin: 0 auto 0 auto;
   justify-self: center;
   background-color: black;
   color: white;
@@ -100,13 +102,13 @@
   position: relative;
   max-width: 40px;
   max-height: 40px;
-  top: -40px;
-  transform: rotate(45deg);
   background-color: transparent;
   border: none;
   outline: none;
   display: flex;
   cursor: pointer;
+  align-self: flex-end;
+  right: -40px;
 }
 
 .form__close-icon {
@@ -118,4 +120,47 @@
 .form__items {
   justify-self: center;
   align-self: center;
+}
+
+@media screen and (max-width: 320px) {
+  .form__overlay.visible {
+    display: grid;
+    place-items: center;
+  }
+  .form__content {
+    max-width: 282px;
+    justify-self: center;
+  }
+  .form__title {
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0;
+  }
+  .form__item {
+    max-width: 238px;
+  }
+  .form__item::placeholder {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0;
+  }
+
+  .form__button-submit {
+    max-width: 238px;
+    max-height: 46px;
+  }
+
+  .form__close-button {
+    max-width: 26px;
+    max-height: 26px;
+    right: 0;
+    bottom: 5px;
+  }
+  .form__close-icon {
+    max-width: 26px;
+    max-height: 26px;
+  }
 }
