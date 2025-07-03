@@ -16,7 +16,7 @@
   border-radius: 10px;
   overflow: hidden;
 }
-.card_photo {
+.card__photo {
   max-width: 282px;
   max-height: 282px;
 }
