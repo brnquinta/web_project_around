@@ -1,21 +1,24 @@
 .page {
   background-color: black;
-  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 28px;
+  width: 100%;
+  margin: 0;
 }
 
 .page__content {
-  max-width: 880px;
+  max-width: 100%;
   max-height: auto;
   justify-self: center;
   align-self: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  margin: 0;
 }
 
 @media screen and (max-width: 320px) {
   .page__content {
-    max-width: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
