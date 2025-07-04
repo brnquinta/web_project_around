@@ -1,4 +1,4 @@
-const cards = document.querySelectorAll(".gallery__card");
+const cards = document.querySelectorAll(".card");
 
 cards.forEach((card) => {
   const like_button = card.querySelector(".card__button");
