@@ -8,6 +8,7 @@
   margin: 0 auto 50px auto;
   padding: 0 16px;
   align-self: center;
+  max-width: 880px;
 }
 .profile__picture {
   max-width: 120px;
@@ -125,7 +126,7 @@
     max-width: 282px;
     max-height: 50px;
     margin-bottom: 36px;
-    position: block;
+    position: relative;
     justify-self: flex-end;
   }
   .profile__edit-icon {
