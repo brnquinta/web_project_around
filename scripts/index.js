@@ -5,6 +5,7 @@ cards.forEach((card) => {
   const like_icon = card.querySelector(".card__icon");
 
   like_button.addEventListener("click", () => {
+    console.log("clicado");
     if (like_icon.getAttribute("src").includes("heart_icon.png")) {
       like_icon.setAttribute("src", "images/heart_icon_black.png");
     } else {
