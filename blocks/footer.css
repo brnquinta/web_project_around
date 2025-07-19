@@ -2,7 +2,7 @@
   display: flex;
   max-width: 880px;
   justify-content: flex-start;
-  margin: 0 auto 60px auto;
+  padding-top: 50px;
 }
 
 .footer__copy {
@@ -13,8 +13,16 @@
   line-height: 100%;
   letter-spacing: 0;
 }
+
+@media screen and (max-width: 640px) {
+  .footer__content {
+    padding-top: 50px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .footer__content {
     max-width: 282px;
+    padding-top: 50px;
   }
 }

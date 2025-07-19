@@ -64,3 +64,25 @@ button_submit.addEventListener("click", () => {
     alert("Preencha todos os campos!");
   }
 });
+
+// botão formulário criar cartão
+const formAddSection = document.querySelector(".form-add");
+const createButton = document.querySelector(".profile__button-add");
+const formAddOverlay = document.querySelector(".form-add__overlay");
+const formAddWindow = formAddOverlay.querySelector(".form-add__content");
+const formAddCloseButton = formAddSection.querySelector(
+  ".form-add__close-button"
+);
+
+// Abrir formulário de criar cartão
+createButton.addEventListener("click", () => {
+  formAddOverlay.classList.toggle("visible");
+  formAddWindow.classList.toggle("visible");
+});
+
+// fechar formulário de criar cartão
+formAddCloseButton.addEventListener("click", () => {
+  formAddOverlay.classList.remove("visible");
+  formAddWindow.classList.remove("visible");
+  alert("botão clicado");
+});

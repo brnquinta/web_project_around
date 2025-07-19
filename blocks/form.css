@@ -1,3 +1,6 @@
+.form__overlay {
+  display: none; /* SUGESTÃO: manter oculto até que JS adicione .visible */
+}
 .form__overlay.visible {
   display: grid;
   place-items: center;
@@ -92,10 +95,6 @@
 
 .form__button-submit:hover {
   opacity: 80%;
-}
-.form__overlay.visible {
-  display: flex;
-  justify-content: center;
 }
 
 .form__close-button {
