@@ -1,19 +1,5 @@
 const cards = document.querySelectorAll(".card");
 
-cards.forEach((card) => {
-  const like_button = card.querySelector(".card__button");
-  const like_icon = card.querySelector(".card__icon");
-
-  like_button.addEventListener("click", () => {
-    console.log("clicado");
-    if (like_icon.getAttribute("src").includes("heart_icon.png")) {
-      like_icon.setAttribute("src", "images/heart_icon_black.png");
-    } else {
-      like_icon.setAttribute("src", "images/heart_icon.png");
-    }
-  });
-});
-
 // botão de edição
 const edit_button = document.querySelector(".profile__button-edit");
 
@@ -84,5 +70,76 @@ createButton.addEventListener("click", () => {
 formAddCloseButton.addEventListener("click", () => {
   formAddOverlay.classList.remove("visible");
   formAddWindow.classList.remove("visible");
-  alert("botão clicado");
+});
+
+// adicionar card através do formulário
+const formCreateButton = formAddSection.querySelector(
+  ".form-add__button-submit"
+);
+const formPlaceInput = formAddSection.querySelector(".form__place");
+const formUrlInput = formAddSection.querySelector(".form__url");
+const galleryContainer = document.querySelector(".gallery__content");
+
+function addCard(placeInput, urlInput) {
+  const cardTemplate = document.querySelector("#card-template").content;
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  cardElement.querySelector(".card__name").textContent = placeInput;
+  cardElement.querySelector(".card__photo").setAttribute("src", urlInput);
+  galleryContainer.prepend(cardElement);
+
+  // Adicionar funcionalidade ao botão de deletar do card específico
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
+
+  // Adicionar funcionalidade ao botão de like do card específico
+  const likeButton = cardElement.querySelector(".card__button");
+  const likeIcon = cardElement.querySelector(".card__icon");
+
+  likeButton.addEventListener("click", () => {
+    console.log("clicado");
+
+    if (likeIcon.getAttribute("src").includes("heart_icon.png")) {
+      likeIcon.setAttribute("src", "images/heart_icon_black.png");
+    } else {
+      likeIcon.setAttribute("src", "images/heart_icon.png");
+    }
+  });
+}
+
+formCreateButton.addEventListener("click", () => {
+  addCard(formPlaceInput.value, formUrlInput.value);
+});
+
+// Render cartões iniciais
+const initialCards = [
+  {
+    name: "Vale de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
+  },
+  {
+    name: "Montanhas Carecas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
+  },
+  {
+    name: "Parque Nacional da Vanoise ",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
+  },
+];
+
+initialCards.forEach((card) => {
+  addCard(card.name, card.link);
 });

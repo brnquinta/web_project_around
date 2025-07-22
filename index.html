@@ -59,119 +59,7 @@
       </div>
     </section>
     <section class="gallery">
-      <div class="gallery__content">
-        <!-- Card 1 -->
-        <div class="card">
-          <img
-            src="images/vale_yosemite.jpg"
-            alt="rio com arvores e montanhas ao fundo"
-            class="card__photo"
-          />
-          <div class="card__title-icon">
-            <h2 class="card__name">Vale Yosemite</h2>
-            <button class="card__button">
-              <img
-                class="card__icon"
-                src="images/heart_icon.png"
-                alt="icone de coração"
-              />
-            </button>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card">
-          <img
-            src="images/lago_louise.png"
-            alt="rio com montanhas ao fundo"
-            class="card__photo"
-          />
-          <div class="card__title-icon">
-            <h2 class="card__name">Lago Louise</h2>
-            <button class="card__button">
-              <img
-                class="card__icon"
-                src="images/heart_icon.png"
-                alt="icone de coração"
-              />
-            </button>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card">
-          <img
-            src="images/Montanhas.png"
-            alt="montanhas ao fundo com por do sol"
-            class="card__photo"
-          />
-          <div class="card__title-icon">
-            <h2 class="card__name">Montanha Careeeeee</h2>
-            <button class="card__button">
-              <img
-                class="card__icon"
-                src="images/heart_icon.png"
-                alt="icone de coração"
-              />
-            </button>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="card">
-          <img
-            src="images/lantemar.png"
-            alt="montanhas com ceú estrelado"
-            class="card__photo"
-          />
-          <div class="card__title-icon">
-            <h2 class="card__name">Latemar</h2>
-            <button class="card__button">
-              <img
-                class="card__icon"
-                src="images/heart_icon.png"
-                alt="icone de coração"
-              />
-            </button>
-          </div>
-        </div>
-        <!-- Card 5 -->
-        <div class="card">
-          <img
-            src="images/parque_nacional.png"
-            alt="lago e montanhas ao fundo"
-            class="card__photo"
-          />
-          <div class="card__title-icon">
-            <h2 class="card__name">Parque Nacional</h2>
-            <button class="card__button">
-              <img
-                class="card__icon"
-                src="images/heart_icon.png"
-                alt="icone de coração"
-              />
-            </button>
-          </div>
-        </div>
-        <!-- Card 6 -->
-        <div class="card">
-          <img
-            src="images/lago_braies.png"
-            alt="barcos em um lago com montanhas ao fundo"
-            class="card__photo"
-          />
-          <div class="card__title-icon">
-            <h2 class="card__name">Lago di Braies</h2>
-            <button class="card__button">
-              <img
-                class="card__icon"
-                src="images/heart_icon.png"
-                alt="icone de coração"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
+      <div class="gallery__content"></div>
     </section>
 
     <section class="form">
@@ -240,7 +128,12 @@
                 required
               />
             </div>
-            <button class="form__button-submit" type="submit">Criar</button>
+            <button
+              class="form__button-submit form-add__button-submit"
+              type="submit"
+            >
+              Criar
+            </button>
           </div>
         </div>
       </div>
@@ -251,6 +144,33 @@
         <h2 class="footer__copy">© 2024 Around The U.S.</h2>
       </div>
     </footer>
+
+    <template class="card-template" id="card-template">
+      <div class="card">
+        <button class="card__delete-button">
+          <img
+            src="images/Trash.svg"
+            alt="icone de lixeira"
+            class="card__trash-icon"
+          />
+        </button>
+        <img
+          src="images/vale_yosemite.jpg"
+          alt="rio com arvores e montanhas ao fundo"
+          class="card__photo"
+        />
+
+        <div class="card__title-icon">
+          <h2 class="card__name">Vale Yosemite</h2>
+          <button class="card__button">
+            <img
+              class="card__icon"
+              src="images/heart_icon.png"
+              alt="icone de coração"
+            />
+          </button>
+        </div></div
+    ></template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
