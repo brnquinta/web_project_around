@@ -1,8 +1,11 @@
 .footer__content {
   display: flex;
   max-width: 880px;
+  width: 100%;
   justify-content: flex-start;
   padding-top: 50px;
+
+  justify-self: center;
 }
 
 .footer__copy {
@@ -17,6 +20,7 @@
 @media screen and (max-width: 640px) {
   .footer__content {
     padding-top: 50px;
+    padding-left: 40px;
   }
 }
 
@@ -24,5 +28,6 @@
   .footer__content {
     max-width: 282px;
     padding-top: 50px;
+    padding-left: 40px;
   }
 }
