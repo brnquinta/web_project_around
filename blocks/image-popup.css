@@ -1,0 +1,45 @@
+.image-popup__overlay {
+  display: none;
+  position: relative;
+  z-index: 3;
+}
+
+.image-popup__overlay.visible {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+}
+
+.image-popup__content {
+  display: flex;
+  width: auto;
+  height: auto;
+  position: fixed;
+  justify-self: center;
+  align-self: center;
+  flex-direction: column;
+}
+
+.image-popup__photo {
+  width: 100%;
+  max-height: 100%;
+  height: 540px;
+}
+
+.image-popup__close-button {
+  position: relative;
+  max-width: 40px;
+  max-height: 40px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  align-self: flex-end;
+  right: -40px;
+}

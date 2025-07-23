@@ -106,6 +106,17 @@ function addCard(placeInput, urlInput) {
       likeIcon.setAttribute("src", "images/heart_icon.png");
     }
   });
+  // Adicionar funcionalidade de popup do card específico
+  const cardPhoto = cardElement.querySelector(".card__photo");
+  const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
+  const imagePopUpPhoto = document.querySelector(".image-popup__photo");
+
+  cardPhoto.addEventListener("click", () => {
+    alert("img clicada");
+    imagePopUpOverlay.classList.toggle("visible");
+    imagePopUpPhoto.classList.toggle("visible");
+    imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
+  });
 }
 
 formCreateButton.addEventListener("click", () => {

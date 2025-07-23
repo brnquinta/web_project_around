@@ -1,5 +1,7 @@
 .form__overlay {
-  display: none; /* SUGESTÃO: manter oculto até que JS adicione .visible */
+  display: none;
+  position: relative;
+  z-index: 3;
 }
 .form__overlay.visible {
   display: grid;
@@ -9,7 +11,7 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  position: absolute;
+  position: fixed;
 }
 
 .form__container {
