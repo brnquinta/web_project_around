@@ -110,12 +110,15 @@ function addCard(placeInput, urlInput) {
   const cardPhoto = cardElement.querySelector(".card__photo");
   const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
   const imagePopUpPhoto = document.querySelector(".image-popup__photo");
+  const imagePopUpName = document.querySelector(".image-popup__name");
+  const cardName = cardElement.querySelector(".card__name").textContent;
 
   cardPhoto.addEventListener("click", () => {
-    alert("img clicada");
     imagePopUpOverlay.classList.toggle("visible");
     imagePopUpPhoto.classList.toggle("visible");
     imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
+    imagePopUpName.textContent = cardName;
+    imagePopUpName.classList.toggle("visible");
   });
 }
 
@@ -153,4 +156,14 @@ const initialCards = [
 
 initialCards.forEach((card) => {
   addCard(card.name, card.link);
+});
+// fechar popup de imagem
+
+const imageCloseButton = document.querySelector(".image-popup__close-button");
+const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
+const imagePopUpPhoto = document.querySelector(".image-popup__photo");
+
+imageCloseButton.addEventListener("click", () => {
+  imagePopUpOverlay.classList.remove("visible");
+  imagePopUpPhoto.classList.remove("visible");
 });
