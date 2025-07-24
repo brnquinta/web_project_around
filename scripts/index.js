@@ -83,11 +83,10 @@ const galleryContainer = document.querySelector(".gallery__content");
 function addCard(placeInput, urlInput) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+
   cardElement.querySelector(".card__name").textContent = placeInput;
   cardElement.querySelector(".card__photo").setAttribute("src", urlInput);
-  cardElement
-    .querySelector(".card__photo")
-    .setAttribute("alt", cardElement.getAttribute("alt"));
+  cardElement.querySelector(".card__photo").setAttribute("alt", placeInput);
   galleryContainer.prepend(cardElement);
 
   // Adicionar funcionalidade ao botão de deletar do card específico
@@ -118,7 +117,7 @@ function addCard(placeInput, urlInput) {
     imagePopUpOverlay.classList.toggle("visible");
     imagePopUpPhoto.classList.toggle("visible");
     imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
-    imagePopUpPhoto.setAttribute("alt", cardPhoto.getAttribute("alt"));
+    imagePopUpPhoto.setAttribute("alt", cardName);
     imagePopUpName.textContent = cardName;
     imagePopUpName.classList.toggle("visible");
   });
