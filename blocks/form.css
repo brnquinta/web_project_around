@@ -93,6 +93,7 @@
   background-color: black;
   color: white;
   cursor: pointer;
+  font-family: Inter, sans-serif;
 }
 
 .form__button-submit:hover {

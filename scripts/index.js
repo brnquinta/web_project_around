@@ -38,8 +38,8 @@ console.log(edit_name);
 // Botão subimt do formulário
 
 button_submit.addEventListener("click", () => {
-  let name = edit_name.value;
-  let profession = edit_profession.value;
+  const name = edit_name.value;
+  const profession = edit_profession.value;
 
   if (name && profession !== "") {
     profile_name.textContent = name;
@@ -85,6 +85,9 @@ function addCard(placeInput, urlInput) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   cardElement.querySelector(".card__name").textContent = placeInput;
   cardElement.querySelector(".card__photo").setAttribute("src", urlInput);
+  cardElement
+    .querySelector(".card__photo")
+    .setAttribute("alt", cardElement.getAttribute("alt"));
   galleryContainer.prepend(cardElement);
 
   // Adicionar funcionalidade ao botão de deletar do card específico
@@ -98,8 +101,6 @@ function addCard(placeInput, urlInput) {
   const likeIcon = cardElement.querySelector(".card__icon");
 
   likeButton.addEventListener("click", () => {
-    console.log("clicado");
-
     if (likeIcon.getAttribute("src").includes("heart_icon.png")) {
       likeIcon.setAttribute("src", "images/heart_icon_black.png");
     } else {
@@ -117,6 +118,7 @@ function addCard(placeInput, urlInput) {
     imagePopUpOverlay.classList.toggle("visible");
     imagePopUpPhoto.classList.toggle("visible");
     imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
+    imagePopUpPhoto.setAttribute("alt", cardPhoto.getAttribute("alt"));
     imagePopUpName.textContent = cardName;
     imagePopUpName.classList.toggle("visible");
   });

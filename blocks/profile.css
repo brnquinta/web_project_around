@@ -2,7 +2,6 @@
   height: auto;
 }
 .profile__content {
-  max-height: auto;
   display: flex;
   align-items: center;
   margin: 0 auto 50px auto;
@@ -28,6 +27,10 @@
   line-height: 48px;
   letter-spacing: 0;
   margin: 0 16px 0 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .profile__profession {
   color: white;
@@ -37,6 +40,10 @@
   line-height: 100%;
   letter-spacing: 0;
   margin: 16px 0 0 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .profile__button-edit {
   width: 24px;
