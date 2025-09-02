@@ -175,7 +175,7 @@ const inputs = form.querySelectorAll(".form__item");
 const buttonSubmit = form.querySelector(".form__button-submit");
 const nameValidation = form.querySelector(".form__name-validation");
 const professionValidation = form.querySelector(".form__profession-validation");
-
+const validation = form.querySelectorAll(".form__validation");
 // 🔹 NOVO: declarando inputName e inputProfession para usar na função de validação global
 const inputName = form.querySelector(".form__name");
 const inputProfession = form.querySelector(".form__profession");
@@ -187,8 +187,10 @@ buttonSubmit.setAttribute("disabled", true);
 function checkFormValidity() {
   if (inputName.validity.valid && inputProfession.validity.valid) {
     buttonSubmit.removeAttribute("disabled");
+    buttonSubmit.classList.remove("form__button-submit--invalid");
   } else {
     buttonSubmit.setAttribute("disabled", true);
+    buttonSubmit.classList.add("form__button-submit--invalid");
   }
 }
 

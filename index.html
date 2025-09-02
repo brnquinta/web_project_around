@@ -75,6 +75,7 @@
           <div class="form__content">
             <h2 class="form__title">Editar perfil</h2>
             <div class="form__group">
+              <div class="form__input-wrapper">
               <input
                 class="form__item form__name"
                 placeholder="Nome"
@@ -85,7 +86,9 @@
                 name="nome"
                 required
               />
-               <div class="form__validation form__name-validation"></div>
+               <span class="form__validation form__name-validation"></span>
+               </div>
+            <div class="form__input-wrapper">
               <input
                 class="form__item form__profession"
                 placeholder="Profissão"
@@ -96,8 +99,8 @@
                 name="profession"
                 required
               />
+             <span class="form__validation form__profession-validation"></span>
             </div>
-             <div class="form__validation form__profession-validation"></div>
             <button class="form__button-submit" type="submit">Enviar</button>
           </div>
         </div>

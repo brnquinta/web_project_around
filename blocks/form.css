@@ -53,6 +53,9 @@
   justify-content: center;
 }
 
+.form__input-wrapper {
+  margin: 0 auto 30px auto;
+}
 .form__item {
   width: 358px;
   height: 27.26px;
@@ -61,7 +64,7 @@
   margin: auto;
   border: 0;
   border-bottom: 1px solid black;
-  margin: 0 auto 29.74px auto;
+  margin: 0 auto 0 auto;
   font-family: Inter, sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -69,6 +72,16 @@
   letter-spacing: 0;
   display: flex;
   justify-content: flex-start;
+}
+.form__validation {
+  position: absolute;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: red;
+  margin-top: 5px;
 }
 
 .form__item:focus {
@@ -102,6 +115,10 @@
   color: white;
   cursor: pointer;
   font-family: Inter, sans-serif;
+}
+
+.form__button-submit--invalid {
+  opacity: 20%;
 }
 
 .form__button-submit:hover {
