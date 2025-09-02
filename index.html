@@ -78,20 +78,26 @@
               <input
                 class="form__item form__name"
                 placeholder="Nome"
+                minlength="2"
+                maxlength="40"
                 type="text"
                 id="nome"
                 name="nome"
                 required
               />
+               <div class="form__validation form__name-validation"></div>
               <input
                 class="form__item form__profession"
                 placeholder="Profissão"
+                minlength="2"
+                maxlength="200"
                 type="text"
                 id="profession"
                 name="profession"
                 required
               />
             </div>
+             <div class="form__validation form__profession-validation"></div>
             <button class="form__button-submit" type="submit">Enviar</button>
           </div>
         </div>

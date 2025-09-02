@@ -168,3 +168,72 @@ imageCloseButton.addEventListener("click", () => {
   imagePopUpOverlay.classList.remove("visible");
   imagePopUpPhoto.classList.remove("visible");
 });
+
+// validação de formulário editar perfil
+const form = document.querySelector(".form");
+const inputs = form.querySelectorAll(".form__item");
+const buttonSubmit = form.querySelector(".form__button-submit");
+const nameValidation = form.querySelector(".form__name-validation");
+const professionValidation = form.querySelector(".form__profession-validation");
+
+// 🔹 NOVO: declarando inputName e inputProfession para usar na função de validação global
+const inputName = form.querySelector(".form__name");
+const inputProfession = form.querySelector(".form__profession");
+
+// 🔹 Inicialmente desabilita o botão
+buttonSubmit.setAttribute("disabled", true);
+
+// Função para checar se todos os campos estão válidos
+function checkFormValidity() {
+  if (inputName.validity.valid && inputProfession.validity.valid) {
+    buttonSubmit.removeAttribute("disabled");
+  } else {
+    buttonSubmit.setAttribute("disabled", true);
+  }
+}
+
+// Loop em todos os inputs
+inputs.forEach((input) => {
+  input.addEventListener("input", (event) => {
+    const target = event.target;
+
+    // 🔹 Sempre limpar a mensagem customizada antes
+    target.setCustomValidity("");
+
+    // 🔹 Validar cada campo individualmente
+    if (!target.validity.valid) {
+      if (target.classList.contains("form__name")) {
+        target.setCustomValidity(
+          "O campo Nome deve conter entre 2 e 40 caracteres."
+        );
+        nameValidation.textContent = target.validationMessage;
+        target.classList.add("form__item--invalid");
+        target.classList.remove("form__item--valid");
+      }
+
+      if (target.classList.contains("form__profession")) {
+        target.setCustomValidity(
+          "O campo Profissão deve conter entre 2 e 200 caracteres."
+        );
+        professionValidation.textContent = target.validationMessage;
+        target.classList.add("form__item--invalid");
+        target.classList.remove("form__item--valid");
+      }
+    } else {
+      // 🔹 Limpa os erros visuais e mensagens
+      target.classList.remove("form__item--invalid");
+      target.classList.add("form__item--valid");
+
+      if (target.classList.contains("form__name")) {
+        nameValidation.textContent = "";
+      }
+
+      if (target.classList.contains("form__profession")) {
+        professionValidation.textContent = "";
+      }
+    }
+
+    // 🔹 Atualiza o botão a cada input
+    checkFormValidity();
+  });
+});

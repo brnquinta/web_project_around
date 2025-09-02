@@ -83,6 +83,14 @@
   letter-spacing: 0;
 }
 
+.form__item--valid {
+  border-bottom: 1px solid green;
+}
+
+.form__item--invalid {
+  border-bottom: 1px solid red;
+}
+
 .form__button-submit {
   width: 358px;
   height: 50.15px;
