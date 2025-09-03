@@ -170,73 +170,92 @@ imageCloseButton.addEventListener("click", () => {
   imagePopUpOverlay.classList.remove("visible");
   imagePopUpPhoto.classList.remove("visible");
 });
+// ==================== VALIDAÇÃO PARA TODOS OS FORMS ====================
+const allForms = document.querySelectorAll(".form, .form-add");
 
-// validação de formulário editar perfil
-const form = document.querySelector(".form");
-const inputs = form.querySelectorAll(".form__item");
-const buttonSubmit = form.querySelector(".form__button-submit");
-const nameValidation = form.querySelector(".form__name-validation");
-const professionValidation = form.querySelector(".form__profession-validation");
-const validation = form.querySelectorAll(".form__validation");
-const inputName = form.querySelector(".form__name");
-const inputProfession = form.querySelector(".form__profession");
+allForms.forEach((form) => {
+  const inputs = form.querySelectorAll(".form__item");
+  const buttonSubmit = form.querySelector(".form__button-submit");
 
-// Inicialmente desabilita o botão
-buttonSubmit.setAttribute("disabled", true);
+  const nameValidation = form.querySelector(".form__name-validation");
+  const professionValidation = form.querySelector(
+    ".form__profession-validation"
+  );
+  const placeValidation = form.querySelector(".form__place-validation");
+  const urlValidation = form.querySelector(".form__url-validation");
 
-// Função para checar se todos os campos estão válidos
-function checkFormValidity() {
-  if (inputName.validity.valid && inputProfession.validity.valid) {
-    buttonSubmit.removeAttribute("disabled");
-    buttonSubmit.classList.remove("form__button-submit--invalid");
-  } else {
+  if (buttonSubmit) {
     buttonSubmit.setAttribute("disabled", true);
-    buttonSubmit.classList.add("form__button-submit--invalid");
   }
-}
 
-// Loop em todos os inputs
-inputs.forEach((input) => {
-  input.addEventListener("input", (event) => {
-    const target = event.target;
-
-    // Sempre limpar a mensagem customizada antes
-    target.setCustomValidity("");
-
-    // Validar cada campo individualmente
-    if (!target.validity.valid) {
-      if (target.classList.contains("form__name")) {
-        target.setCustomValidity(
-          "O campo Nome deve conter entre 2 e 40 caracteres."
-        );
-        nameValidation.textContent = target.validationMessage;
-        target.classList.add("form__item--invalid");
-        target.classList.remove("form__item--valid");
-      }
-
-      if (target.classList.contains("form__profession")) {
-        target.setCustomValidity(
-          "O campo Profissão deve conter entre 2 e 200 caracteres."
-        );
-        professionValidation.textContent = target.validationMessage;
-        target.classList.add("form__item--invalid");
-        target.classList.remove("form__item--valid");
-      }
+  function checkFormValidity() {
+    const allValid = Array.from(inputs).every((input) => input.validity.valid);
+    if (allValid) {
+      buttonSubmit.removeAttribute("disabled");
+      buttonSubmit.classList.remove("form__button-submit--invalid");
     } else {
-      // Limpa os erros visuais e mensagens
-      target.classList.remove("form__item--invalid");
-      target.classList.add("form__item--valid");
-
-      if (target.classList.contains("form__name")) {
-        nameValidation.textContent = "";
-      }
-
-      if (target.classList.contains("form__profession")) {
-        professionValidation.textContent = "";
-      }
+      buttonSubmit.setAttribute("disabled", true);
+      buttonSubmit.classList.add("form__button-submit--invalid");
     }
+  }
 
-    // Atualiza o botão a cada input
-    checkFormValidity();
+  inputs.forEach((input) => {
+    input.addEventListener("input", (event) => {
+      const target = event.target;
+      target.setCustomValidity("");
+
+      if (!target.validity.valid) {
+        if (target.classList.contains("form__name")) {
+          target.setCustomValidity(
+            "O campo Nome deve conter entre 2 e 40 caracteres."
+          );
+          if (nameValidation)
+            nameValidation.textContent = target.validationMessage;
+        }
+        if (target.classList.contains("form__profession")) {
+          target.setCustomValidity(
+            "O campo Profissão deve conter entre 2 e 200 caracteres."
+          );
+          if (professionValidation)
+            professionValidation.textContent = target.validationMessage;
+        }
+        if (target.classList.contains("form__place")) {
+          target.setCustomValidity(
+            "O campo Título deve conter entre 2 e 30 caracteres."
+          );
+          if (placeValidation)
+            placeValidation.textContent = target.validationMessage;
+        }
+        if (target.classList.contains("form__url")) {
+          target.setCustomValidity("O campo Link deve ser uma URL válida.");
+          if (urlValidation)
+            urlValidation.textContent = target.validationMessage;
+        }
+
+        target.classList.add("form__item--invalid");
+        target.classList.remove("form__item--valid");
+      } else {
+        target.classList.remove("form__item--invalid");
+        target.classList.add("form__item--valid");
+
+        if (target.classList.contains("form__name") && nameValidation) {
+          nameValidation.textContent = "";
+        }
+        if (
+          target.classList.contains("form__profession") &&
+          professionValidation
+        ) {
+          professionValidation.textContent = "";
+        }
+        if (target.classList.contains("form__place") && placeValidation) {
+          placeValidation.textContent = "";
+        }
+        if (target.classList.contains("form__url") && urlValidation) {
+          urlValidation.textContent = "";
+        }
+      }
+
+      checkFormValidity();
+    });
   });
 });
