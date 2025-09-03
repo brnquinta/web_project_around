@@ -120,22 +120,30 @@
           <div class="form__content form-add__content">
             <h2 class="form__title">Novo local</h2>
             <div class="form__group">
+              <div class="form__input-wrapper">
               <input
                 class="form__item form__place"
                 placeholder="Nome"
+                minlength="2"
+                maxlength="30"
                 type="text"
                 id="place"
                 name="place"
                 required
               />
+              <span class="form__validation form__place-validation"></span>
+                </div>
+                <div class="form__input-wrapper">
               <input
                 class="form__item form__url"
                 placeholder="Link"
-                type="text"
+                type="url"
                 id="url"
                 name="url"
                 required
               />
+              <span class="form__validation form__url-validation"></span>
+              </div>
             </div>
             <button
               class="form__button-submit form-add__button-submit"

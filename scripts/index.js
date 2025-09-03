@@ -26,6 +26,8 @@ const button_submit = form_section.querySelector(".form__button-submit");
 edit_button.addEventListener("click", () => {
   form_overlay.classList.toggle("visible");
   form_window.classList.toggle("visible");
+  edit_name.setAttribute("placeholder", profile_name.textContent);
+  edit_profession.setAttribute("placeholder", profile_profession.textContent);
 });
 
 form_close_button.addEventListener("click", () => {
@@ -176,11 +178,10 @@ const buttonSubmit = form.querySelector(".form__button-submit");
 const nameValidation = form.querySelector(".form__name-validation");
 const professionValidation = form.querySelector(".form__profession-validation");
 const validation = form.querySelectorAll(".form__validation");
-// 🔹 NOVO: declarando inputName e inputProfession para usar na função de validação global
 const inputName = form.querySelector(".form__name");
 const inputProfession = form.querySelector(".form__profession");
 
-// 🔹 Inicialmente desabilita o botão
+// Inicialmente desabilita o botão
 buttonSubmit.setAttribute("disabled", true);
 
 // Função para checar se todos os campos estão válidos
@@ -199,10 +200,10 @@ inputs.forEach((input) => {
   input.addEventListener("input", (event) => {
     const target = event.target;
 
-    // 🔹 Sempre limpar a mensagem customizada antes
+    // Sempre limpar a mensagem customizada antes
     target.setCustomValidity("");
 
-    // 🔹 Validar cada campo individualmente
+    // Validar cada campo individualmente
     if (!target.validity.valid) {
       if (target.classList.contains("form__name")) {
         target.setCustomValidity(
@@ -222,7 +223,7 @@ inputs.forEach((input) => {
         target.classList.remove("form__item--valid");
       }
     } else {
-      // 🔹 Limpa os erros visuais e mensagens
+      // Limpa os erros visuais e mensagens
       target.classList.remove("form__item--invalid");
       target.classList.add("form__item--valid");
 
@@ -235,7 +236,7 @@ inputs.forEach((input) => {
       }
     }
 
-    // 🔹 Atualiza o botão a cada input
+    // Atualiza o botão a cada input
     checkFormValidity();
   });
 });
