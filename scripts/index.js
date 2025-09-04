@@ -4,6 +4,7 @@ const cards = document.querySelectorAll(".card");
 const edit_button = document.querySelector(".profile__button-edit");
 
 // janela de formulário
+const allForms = document.querySelectorAll(".form, .form-add");
 const form_section = document.querySelector(".form");
 const form_overlay = form_section.querySelector(".form__overlay");
 const form_window = form_overlay.querySelector(".form__content");
@@ -34,8 +35,6 @@ form_close_button.addEventListener("click", () => {
   form_overlay.classList.remove("visible");
   form_window.classList.remove("visible");
 });
-
-console.log(edit_name);
 
 // Botão subimt do formulário
 
@@ -170,8 +169,17 @@ imageCloseButton.addEventListener("click", () => {
   imagePopUpOverlay.classList.remove("visible");
   imagePopUpPhoto.classList.remove("visible");
 });
+
+// fechar popup de imagem ao clicar no overlay
+imagePopUpOverlay.addEventListener("click", () => {
+  imagePopUpOverlay.classList.remove("visible");
+  imagePopUpPhoto.classList.remove("visible");
+});
+
+imagePopUpPhoto.addEventListener("click", (event) => {
+  event.stopPropagation();
+});
 // ==================== VALIDAÇÃO PARA TODOS OS FORMS ====================
-const allForms = document.querySelectorAll(".form, .form-add");
 
 allForms.forEach((form) => {
   const inputs = form.querySelectorAll(".form__item");
@@ -227,7 +235,9 @@ allForms.forEach((form) => {
             placeValidation.textContent = target.validationMessage;
         }
         if (target.classList.contains("form__url")) {
-          target.setCustomValidity("O campo Link deve ser uma URL válida.");
+          target.setCustomValidity(
+            "O campo URL da imagem deve conter uma URL."
+          );
           if (urlValidation)
             urlValidation.textContent = target.validationMessage;
         }
@@ -257,5 +267,21 @@ allForms.forEach((form) => {
 
       checkFormValidity();
     });
+  });
+});
+
+// fechar qualquer formulário ao clicar no overlay
+allForms.forEach((form) => {
+  const allFormsOverlay = form.querySelector(".form__overlay");
+  const allFormsWindow = form.querySelector(".form__content");
+
+  allFormsOverlay.addEventListener("click", () => {
+    allFormsOverlay.classList.remove("visible");
+    allFormsWindow.classList.remove("visible");
+  });
+
+  // Imperde de fechar ao clicar no conteudo do formulário
+  allFormsWindow.addEventListener("click", (event) => {
+    event.stopPropagation();
   });
 });
