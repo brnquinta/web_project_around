@@ -176,6 +176,15 @@ imagePopUpOverlay.addEventListener("click", () => {
   imagePopUpPhoto.classList.remove("visible");
 });
 
+// Fecha o overlay e a janela ao pressionar escape
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    imagePopUpOverlay.classList.remove("visible");
+    imagePopUpPhoto.classList.remove("visible");
+  }
+  console.log(event.key);
+});
+
 imagePopUpPhoto.addEventListener("click", (event) => {
   event.stopPropagation();
 });
@@ -278,6 +287,15 @@ allForms.forEach((form) => {
   allFormsOverlay.addEventListener("click", () => {
     allFormsOverlay.classList.remove("visible");
     allFormsWindow.classList.remove("visible");
+  });
+
+  // Fecha o overlay e a janela do formulário ao pressionar escape
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      allFormsOverlay.classList.remove("visible");
+      allFormsWindow.classList.remove("visible");
+    }
+    console.log(event.key);
   });
 
   // Imperde de fechar ao clicar no conteudo do formulário
