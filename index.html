@@ -27,6 +27,7 @@
         <img class="header__logo" src="images/Vector.png" alt="logo arround" />
       </div>
     </header>
+
     <section class="profile">
       <div class="profile__content">
         <img
@@ -45,7 +46,6 @@
               />
             </button>
           </div>
-
           <h2 class="profile__profession">Explorador</h2>
         </div>
 
@@ -58,6 +58,7 @@
         </button>
       </div>
     </section>
+
     <section class="gallery">
       <div class="gallery__content"></div>
     </section>
@@ -76,32 +77,35 @@
             <h2 class="form__title">Editar perfil</h2>
             <div class="form__group">
               <div class="form__input-wrapper">
-              <input
-                class="form__item form__name"
-                placeholder="Nome"
-                minlength="2"
-                maxlength="40"
-                type="text"
-                id="nome"
-                name="nome"
-                required
-              />
-               <span class="form__validation form__name-validation"></span>
-               </div>
-            <div class="form__input-wrapper">
-              <input
-                class="form__item form__profession"
-                placeholder="Profissão"
-                minlength="2"
-                maxlength="200"
-                type="text"
-                id="profession"
-                name="profession"
-                required
-              />
-             <span class="form__validation form__profession-validation"></span>
+                <input
+                  class="form__item form__name"
+                  placeholder="Nome"
+                  minlength="2"
+                  maxlength="40"
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  required
+                />
+                <span class="form__validation form__name-validation"></span>
+              </div>
+              <div class="form__input-wrapper">
+                <input
+                  class="form__item form__profession"
+                  placeholder="Profissão"
+                  minlength="2"
+                  maxlength="200"
+                  type="text"
+                  id="profession"
+                  name="profession"
+                  required
+                />
+                <span
+                  class="form__validation form__profession-validation"
+                ></span>
+              </div>
+              <button class="form__button-submit" type="submit">Enviar</button>
             </div>
-            <button class="form__button-submit" type="submit">Enviar</button>
           </div>
         </div>
       </div>
@@ -121,28 +125,28 @@
             <h2 class="form__title">Novo local</h2>
             <div class="form__group">
               <div class="form__input-wrapper">
-              <input
-                class="form__item form__place"
-                placeholder="Nome"
-                minlength="2"
-                maxlength="30"
-                type="text"
-                id="place"
-                name="place"
-                required
-              />
-              <span class="form__validation form__place-validation"></span>
-                </div>
-                <div class="form__input-wrapper">
-              <input
-                class="form__item form__url"
-                placeholder="Link"
-                type="url"
-                id="url"
-                name="url"
-                required
-              />
-              <span class="form__validation form__url-validation"></span>
+                <input
+                  class="form__item form__place"
+                  placeholder="Nome"
+                  minlength="2"
+                  maxlength="30"
+                  type="text"
+                  id="place"
+                  name="place"
+                  required
+                />
+                <span class="form__validation form__place-validation"></span>
+              </div>
+              <div class="form__input-wrapper">
+                <input
+                  class="form__item form__url"
+                  placeholder="Link"
+                  type="url"
+                  id="url"
+                  name="url"
+                  required
+                />
+                <span class="form__validation form__url-validation"></span>
               </div>
             </div>
             <button
@@ -164,7 +168,7 @@
               class="image popup__close-icon"
               alt="icone de fechar"
               src="images/close_icon.png"
-            ></img>
+            />
           </button>
           <img src="" alt="janela com imagem" class="image-popup__photo" />
           <p class="image-popup__name">Teste</p>
@@ -202,8 +206,10 @@
               alt="icone de coração"
             />
           </button>
-        </div></div
-    ></template>
-    <script src="./scripts/index.js"></script>
+        </div>
+      </div>
+    </template>
+
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

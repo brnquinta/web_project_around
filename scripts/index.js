@@ -1,58 +1,45 @@
-const cards = document.querySelectorAll(".card");
+import { enableValidation } from "./validate.js";
 
-// botão de edição
-const edit_button = document.querySelector(".profile__button-edit");
+const editButton = document.querySelector(".profile__button-edit");
+const formSection = document.querySelector(".form");
+const formOverlay = formSection.querySelector(".form__overlay");
+const formWindow = formOverlay.querySelector(".form__content");
+const formCloseButton = formSection.querySelector(".form__close-button");
+const profileName = document.querySelector(".profile__name");
+const profileProfession = document.querySelector(".profile__profession");
+const editName = formSection.querySelector(".form__name");
+const editProfession = formSection.querySelector(".form__profession");
+const buttonSubmit = formSection.querySelector(".form__button-submit");
 
-// janela de formulário
-const allForms = document.querySelectorAll(".form, .form-add");
-const form_section = document.querySelector(".form");
-const form_overlay = form_section.querySelector(".form__overlay");
-const form_window = form_overlay.querySelector(".form__content");
-const form_close_button = form_section.querySelector(".form__close-button");
-
-// perfil cadastrado
-const profile_name = document.querySelector(".profile__name");
-const profile_profession = document.querySelector(".profile__profession");
-
-// inputs do formulário
-const form_item = document.querySelector(".form__item");
-const edit_name = form_section.querySelector(".form__name");
-const edit_profession = form_section.querySelector(".form__profession");
-
-//botão submit formulário
-const button_submit = form_section.querySelector(".form__button-submit");
-
-// função toggle do formulário
-
-edit_button.addEventListener("click", () => {
-  form_overlay.classList.toggle("visible");
-  form_window.classList.toggle("visible");
-  edit_name.setAttribute("placeholder", profile_name.textContent);
-  edit_profession.setAttribute("placeholder", profile_profession.textContent);
+// Toggle edição perfil
+editButton.addEventListener("click", () => {
+  formOverlay.classList.toggle("visible");
+  formWindow.classList.toggle("visible");
+  editName.setAttribute("placeholder", profileName.textContent);
+  editProfession.setAttribute("placeholder", profileProfession.textContent);
 });
 
-form_close_button.addEventListener("click", () => {
-  form_overlay.classList.remove("visible");
-  form_window.classList.remove("visible");
+formCloseButton.addEventListener("click", () => {
+  formOverlay.classList.remove("visible");
+  formWindow.classList.remove("visible");
 });
 
-// Botão subimt do formulário
-
-button_submit.addEventListener("click", () => {
-  const name = edit_name.value;
-  const profession = edit_profession.value;
+// Submissão edição perfil
+buttonSubmit.addEventListener("click", () => {
+  const name = editName.value;
+  const profession = editProfession.value;
 
   if (name && profession !== "") {
-    profile_name.textContent = name;
-    profile_profession.textContent = profession;
-    form_overlay.classList.remove("visible");
-    form_window.classList.remove("visible");
+    profileName.textContent = name;
+    profileProfession.textContent = profession;
+    formOverlay.classList.remove("visible");
+    formWindow.classList.remove("visible");
   } else {
     alert("Preencha todos os campos!");
   }
 });
 
-// botão formulário criar cartão
+// Formulário criar cartão
 const formAddSection = document.querySelector(".form-add");
 const createButton = document.querySelector(".profile__button-add");
 const formAddOverlay = document.querySelector(".form-add__overlay");
@@ -61,19 +48,16 @@ const formAddCloseButton = formAddSection.querySelector(
   ".form-add__close-button"
 );
 
-// Abrir formulário de criar cartão
 createButton.addEventListener("click", () => {
   formAddOverlay.classList.toggle("visible");
   formAddWindow.classList.toggle("visible");
 });
 
-// fechar formulário de criar cartão
 formAddCloseButton.addEventListener("click", () => {
   formAddOverlay.classList.remove("visible");
   formAddWindow.classList.remove("visible");
 });
 
-// adicionar card através do formulário
 const formCreateButton = formAddSection.querySelector(
   ".form-add__button-submit"
 );
@@ -90,16 +74,11 @@ function addCard(placeInput, urlInput) {
   cardElement.querySelector(".card__photo").setAttribute("alt", placeInput);
   galleryContainer.prepend(cardElement);
 
-  // Adicionar funcionalidade ao botão de deletar do card específico
   const deleteButton = cardElement.querySelector(".card__delete-button");
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  deleteButton.addEventListener("click", () => cardElement.remove());
 
-  // Adicionar funcionalidade ao botão de like do card específico
   const likeButton = cardElement.querySelector(".card__button");
   const likeIcon = cardElement.querySelector(".card__icon");
-
   likeButton.addEventListener("click", () => {
     if (likeIcon.getAttribute("src").includes("heart_icon.png")) {
       likeIcon.setAttribute("src", "images/heart_icon_black.png");
@@ -107,7 +86,7 @@ function addCard(placeInput, urlInput) {
       likeIcon.setAttribute("src", "images/heart_icon.png");
     }
   });
-  // Adicionar funcionalidade de popup do card específico
+
   const cardPhoto = cardElement.querySelector(".card__photo");
   const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
   const imagePopUpPhoto = document.querySelector(".image-popup__photo");
@@ -128,7 +107,6 @@ formCreateButton.addEventListener("click", () => {
   addCard(formPlaceInput.value, formUrlInput.value);
 });
 
-// Render cartões iniciais
 const initialCards = [
   {
     name: "Vale de Yosemite",
@@ -147,7 +125,7 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
   },
   {
-    name: "Parque Nacional da Vanoise ",
+    name: "Parque Nacional da Vanoise",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
   },
   {
@@ -156,150 +134,44 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach((card) => {
-  addCard(card.name, card.link);
-});
-// fechar popup de imagem
+initialCards.forEach((card) => addCard(card.name, card.link));
 
+// Popup de imagem
 const imageCloseButton = document.querySelector(".image-popup__close-button");
 const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
 const imagePopUpPhoto = document.querySelector(".image-popup__photo");
+const imagePopUpName = document.querySelector(".image-popup__name");
 
 imageCloseButton.addEventListener("click", () => {
   imagePopUpOverlay.classList.remove("visible");
   imagePopUpPhoto.classList.remove("visible");
+  imagePopUpName.classList.remove("visible");
 });
 
-// fechar popup de imagem ao clicar no overlay
 imagePopUpOverlay.addEventListener("click", () => {
   imagePopUpOverlay.classList.remove("visible");
   imagePopUpPhoto.classList.remove("visible");
+  imagePopUpName.classList.remove("visible");
 });
 
-// Fecha o overlay e a janela ao pressionar escape
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     imagePopUpOverlay.classList.remove("visible");
     imagePopUpPhoto.classList.remove("visible");
+    imagePopUpName.classList.remove("visible");
   }
-  console.log(event.key);
 });
 
 imagePopUpPhoto.addEventListener("click", (event) => {
   event.stopPropagation();
 });
-// ==================== VALIDAÇÃO PARA TODOS OS FORMS ====================
 
-allForms.forEach((form) => {
-  const inputs = form.querySelectorAll(".form__item");
-  const buttonSubmit = form.querySelector(".form__button-submit");
-
-  const nameValidation = form.querySelector(".form__name-validation");
-  const professionValidation = form.querySelector(
-    ".form__profession-validation"
-  );
-  const placeValidation = form.querySelector(".form__place-validation");
-  const urlValidation = form.querySelector(".form__url-validation");
-
-  if (buttonSubmit) {
-    buttonSubmit.setAttribute("disabled", true);
-  }
-
-  function checkFormValidity() {
-    const allValid = Array.from(inputs).every((input) => input.validity.valid);
-    if (allValid) {
-      buttonSubmit.removeAttribute("disabled");
-      buttonSubmit.classList.remove("form__button-submit--invalid");
-    } else {
-      buttonSubmit.setAttribute("disabled", true);
-      buttonSubmit.classList.add("form__button-submit--invalid");
-    }
-  }
-
-  inputs.forEach((input) => {
-    input.addEventListener("input", (event) => {
-      const target = event.target;
-      target.setCustomValidity("");
-
-      if (!target.validity.valid) {
-        if (target.classList.contains("form__name")) {
-          target.setCustomValidity(
-            "O campo Nome deve conter entre 2 e 40 caracteres."
-          );
-          if (nameValidation)
-            nameValidation.textContent = target.validationMessage;
-        }
-        if (target.classList.contains("form__profession")) {
-          target.setCustomValidity(
-            "O campo Profissão deve conter entre 2 e 200 caracteres."
-          );
-          if (professionValidation)
-            professionValidation.textContent = target.validationMessage;
-        }
-        if (target.classList.contains("form__place")) {
-          target.setCustomValidity(
-            "O campo Título deve conter entre 2 e 30 caracteres."
-          );
-          if (placeValidation)
-            placeValidation.textContent = target.validationMessage;
-        }
-        if (target.classList.contains("form__url")) {
-          target.setCustomValidity(
-            "O campo URL da imagem deve conter uma URL."
-          );
-          if (urlValidation)
-            urlValidation.textContent = target.validationMessage;
-        }
-
-        target.classList.add("form__item--invalid");
-        target.classList.remove("form__item--valid");
-      } else {
-        target.classList.remove("form__item--invalid");
-        target.classList.add("form__item--valid");
-
-        if (target.classList.contains("form__name") && nameValidation) {
-          nameValidation.textContent = "";
-        }
-        if (
-          target.classList.contains("form__profession") &&
-          professionValidation
-        ) {
-          professionValidation.textContent = "";
-        }
-        if (target.classList.contains("form__place") && placeValidation) {
-          placeValidation.textContent = "";
-        }
-        if (target.classList.contains("form__url") && urlValidation) {
-          urlValidation.textContent = "";
-        }
-      }
-
-      checkFormValidity();
-    });
-  });
-});
-
-// fechar qualquer formulário ao clicar no overlay
-allForms.forEach((form) => {
-  const allFormsOverlay = form.querySelector(".form__overlay");
-  const allFormsWindow = form.querySelector(".form__content");
-
-  allFormsOverlay.addEventListener("click", () => {
-    allFormsOverlay.classList.remove("visible");
-    allFormsWindow.classList.remove("visible");
-  });
-
-  // Fecha o overlay e a janela do formulário ao pressionar escape
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      allFormsOverlay.classList.remove("visible");
-      allFormsWindow.classList.remove("visible");
-    }
-    console.log(event.key);
-  });
-
-  // Imperde de fechar ao clicar no conteudo do formulário
-  allFormsWindow.addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
+// ==================== VALIDAÇÃO ====================
+enableValidation({
+  formSelector: ".form, .form-add",
+  inputSelector: ".form__item",
+  submitButtonSelector: ".form__button-submit",
+  inactiveButtonClass: "form__button-submit--invalid",
+  inputErrorClass: "form__item--invalid",
+  errorClass: "form__validation",
 });
