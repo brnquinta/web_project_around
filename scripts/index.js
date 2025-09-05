@@ -105,6 +105,10 @@ function addCard(placeInput, urlInput) {
 
 formCreateButton.addEventListener("click", () => {
   addCard(formPlaceInput.value, formUrlInput.value);
+  formAddOverlay.classList.remove("visible");
+  formAddWindow.classList.remove("visible");
+
+  console.log(imagePopUpOverlay.classList.contains("visible"));
 });
 
 const initialCards = [
