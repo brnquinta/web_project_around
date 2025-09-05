@@ -14,15 +14,12 @@ const buttonSubmit = formSection.querySelector(".form__button-submit");
 // Toggle edição perfil
 editButton.addEventListener("click", () => {
   formOverlay.classList.toggle("visible");
-  formWindow.classList.toggle("visible");
   editName.setAttribute("placeholder", profileName.textContent);
   editProfession.setAttribute("placeholder", profileProfession.textContent);
 });
 
-formCloseButton.addEventListener("click", () => {
-  formOverlay.classList.remove("visible");
-  formWindow.classList.remove("visible");
-});
+formCloseButton.addEventListener("click", closeUpForm);
+formOverlay.addEventListener("click", closeUpForm);
 
 // Submissão edição perfil
 buttonSubmit.addEventListener("click", () => {
@@ -32,12 +29,20 @@ buttonSubmit.addEventListener("click", () => {
   if (name && profession !== "") {
     profileName.textContent = name;
     profileProfession.textContent = profession;
-    formOverlay.classList.remove("visible");
-    formWindow.classList.remove("visible");
-  } else {
-    alert("Preencha todos os campos!");
+    closeUpForm();
   }
 });
+
+// Fechar formulário popup
+function closeUpForm() {
+  const forms = document.querySelectorAll(".form");
+  forms.forEach((form) => {
+    const overlays = form.querySelectorAll(".form__overlay");
+    overlays.forEach((overlay) => {
+      overlay.classList.remove("visible");
+    });
+  });
+}
 
 // Formulário criar cartão
 const formAddSection = document.querySelector(".form-add");
@@ -50,14 +55,13 @@ const formAddCloseButton = formAddSection.querySelector(
 
 createButton.addEventListener("click", () => {
   formAddOverlay.classList.toggle("visible");
-  formAddWindow.classList.toggle("visible");
 });
 
-formAddCloseButton.addEventListener("click", () => {
-  formAddOverlay.classList.remove("visible");
-  formAddWindow.classList.remove("visible");
-});
+// Inputs para fechar formulário
+formAddCloseButton.addEventListener("click", closeUpForm);
+formOverlay.addEventListener("click", closeUpForm);
 
+// abrir formulário de add cartão
 const formCreateButton = formAddSection.querySelector(
   ".form-add__button-submit"
 );
@@ -105,9 +109,7 @@ function addCard(placeInput, urlInput) {
 
 formCreateButton.addEventListener("click", () => {
   addCard(formPlaceInput.value, formUrlInput.value);
-  formAddOverlay.classList.remove("visible");
-  formAddWindow.classList.remove("visible");
-
+  closeUpForm();
   console.log(imagePopUpOverlay.classList.contains("visible"));
 });
 
@@ -179,3 +181,4 @@ enableValidation({
   inputErrorClass: "form__item--invalid",
   errorClass: "form__validation",
 });
+//  preciso aplicar o fechar clicando no overlay para todos formulários
