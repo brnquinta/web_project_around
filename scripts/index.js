@@ -2,7 +2,7 @@ import { enableValidation } from "./validate.js";
 
 const editButton = document.querySelector(".profile__button-edit");
 const formSection = document.querySelector(".form");
-const formOverlay = formSection.querySelector(".form__overlay");
+const formOverlay = document.querySelector(".form__overlay");
 const formCloseButton = formSection.querySelector(".form__close-button");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
@@ -18,7 +18,6 @@ editButton.addEventListener("click", () => {
 });
 
 formCloseButton.addEventListener("click", closeUpForm);
-formOverlay.addEventListener("click", closeUpForm);
 
 // Submissão edição perfil
 buttonSubmit.addEventListener("click", () => {
@@ -58,8 +57,24 @@ createButton.addEventListener("click", () => {
 
 // Inputs para fechar formulário
 formAddCloseButton.addEventListener("click", closeUpForm);
-formOverlay.addEventListener("click", closeUpForm);
-formAddOverlay.addEventListener("click", closeUpForm);
+
+formOverlay.addEventListener("click", (event) => {
+  if (event.target.classList.contains("form__overlay")) {
+    closeUpForm();
+  }
+});
+
+formAddOverlay.addEventListener("click", (event) => {
+  if (event.target.classList.contains("form__overlay")) {
+    closeUpForm();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeUpForm();
+  }
+});
 
 // abrir formulário de add cartão
 const formCreateButton = formAddSection.querySelector(
