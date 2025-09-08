@@ -39,7 +39,6 @@ function closeUpForm() {
     const overlays = form.querySelectorAll(".form__overlay");
     overlays.forEach((overlay) => {
       overlay.classList.remove("visible");
-      console.log(forms);
     });
   });
 }
@@ -111,7 +110,6 @@ function addCard(placeInput, urlInput) {
 formCreateButton.addEventListener("click", () => {
   addCard(formPlaceInput.value, formUrlInput.value);
   closeUpForm();
-  console.log(imagePopUpOverlay.classList.contains("visible"));
 });
 
 const initialCards = [
@@ -152,7 +150,6 @@ const imagePopUpPhoto = document.querySelector(".image-popup__photo");
 function closeCardPopUp() {
   imagePopUpOverlay.classList.remove("visible");
 }
-console.log(imagePopUp);
 
 imageCloseButton.addEventListener("click", closeCardPopUp);
 
