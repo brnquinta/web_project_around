@@ -3,7 +3,6 @@ import { enableValidation } from "./validate.js";
 const editButton = document.querySelector(".profile__button-edit");
 const formSection = document.querySelector(".form");
 const formOverlay = formSection.querySelector(".form__overlay");
-const formWindow = formOverlay.querySelector(".form__content");
 const formCloseButton = formSection.querySelector(".form__close-button");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
@@ -35,11 +34,12 @@ buttonSubmit.addEventListener("click", () => {
 
 // Fechar formulário popup
 function closeUpForm() {
-  const forms = document.querySelectorAll(".form");
+  const forms = document.querySelectorAll(".form, .form-add");
   forms.forEach((form) => {
     const overlays = form.querySelectorAll(".form__overlay");
     overlays.forEach((overlay) => {
       overlay.classList.remove("visible");
+      console.log(forms);
     });
   });
 }
@@ -60,6 +60,7 @@ createButton.addEventListener("click", () => {
 // Inputs para fechar formulário
 formAddCloseButton.addEventListener("click", closeUpForm);
 formOverlay.addEventListener("click", closeUpForm);
+formAddOverlay.addEventListener("click", closeUpForm);
 
 // abrir formulário de add cartão
 const formCreateButton = formAddSection.querySelector(
@@ -143,28 +144,23 @@ const initialCards = [
 initialCards.forEach((card) => addCard(card.name, card.link));
 
 // Popup de imagem
+const imagePopUp = document.querySelector(".image-popup");
 const imageCloseButton = document.querySelector(".image-popup__close-button");
 const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
 const imagePopUpPhoto = document.querySelector(".image-popup__photo");
-const imagePopUpName = document.querySelector(".image-popup__name");
 
-imageCloseButton.addEventListener("click", () => {
+function closeCardPopUp() {
   imagePopUpOverlay.classList.remove("visible");
-  imagePopUpPhoto.classList.remove("visible");
-  imagePopUpName.classList.remove("visible");
-});
+}
+console.log(imagePopUp);
 
-imagePopUpOverlay.addEventListener("click", () => {
-  imagePopUpOverlay.classList.remove("visible");
-  imagePopUpPhoto.classList.remove("visible");
-  imagePopUpName.classList.remove("visible");
-});
+imageCloseButton.addEventListener("click", closeCardPopUp);
+
+imagePopUpOverlay.addEventListener("click", closeCardPopUp);
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    imagePopUpOverlay.classList.remove("visible");
-    imagePopUpPhoto.classList.remove("visible");
-    imagePopUpName.classList.remove("visible");
+    closeCardPopUp();
   }
 });
 
@@ -181,4 +177,3 @@ enableValidation({
   inputErrorClass: "form__item--invalid",
   errorClass: "form__validation",
 });
-//  preciso aplicar o fechar clicando no overlay para todos formulários
