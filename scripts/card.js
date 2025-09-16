@@ -30,6 +30,8 @@ export default class Card {
     likeButton.addEventListener("click", () => {
       this._handleLike(likeIcon);
     });
+
+    this._HandleVisible(cardElement);
   }
 
   // método para deletar
@@ -44,5 +46,23 @@ export default class Card {
     } else {
       likeIcon.setAttribute("src", "images/heart_icon.png");
     }
+  }
+
+  _HandleVisible(cardElement) {
+    const cardPhoto = cardElement.querySelector(".card__photo");
+    const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
+    const imagePopUpPhoto = document.querySelector(".image-popup__photo");
+    const imagePopUpName = document.querySelector(".image-popup__name");
+    const cardName = cardElement.querySelector(".card__name").textContent;
+
+    cardPhoto.addEventListener("click", () => {
+      imagePopUpOverlay.classList.toggle("visible");
+      imagePopUpPhoto.classList.toggle("visible");
+      imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
+      imagePopUpPhoto.setAttribute("alt", cardName);
+      imagePopUpName.textContent = cardName;
+      imagePopUpName.classList.toggle("visible");
+      console.log("card clicado");
+    });
   }
 }

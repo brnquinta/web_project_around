@@ -87,30 +87,11 @@ const galleryContainer = document.querySelector(".gallery__content");
 
 // ==================== CRIAÇÃO DE CARDS ====================
 
-// MUDANÇA: removi o trecho errado que criava card direto fora de evento
-// Agora a criação é feita apenas no clique do botão + inicialização
-
 formCreateButton.addEventListener("click", () => {
   const card = new Card(formPlaceInput.value, formUrlInput.value); // MUDANÇA: agora passa os valores corretos
   const cardElement = card.addCard(); // MUDANÇA: método addCard() deve retornar o elemento no Card.js
   galleryContainer.prepend(cardElement);
   closeUpForm();
-
-  // Popup de imagem
-  const cardPhoto = cardElement.querySelector(".card__photo");
-  const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
-  const imagePopUpPhoto = document.querySelector(".image-popup__photo");
-  const imagePopUpName = document.querySelector(".image-popup__name");
-  const cardName = cardElement.querySelector(".card__name").textContent;
-
-  cardPhoto.addEventListener("click", () => {
-    imagePopUpOverlay.classList.toggle("visible");
-    imagePopUpPhoto.classList.toggle("visible");
-    imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
-    imagePopUpPhoto.setAttribute("alt", cardName);
-    imagePopUpName.textContent = cardName;
-    imagePopUpName.classList.toggle("visible");
-  });
 });
 
 // MUDANÇA: corrigido para usar a classe Card no carregamento inicial
