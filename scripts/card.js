@@ -57,11 +57,9 @@ export default class Card {
 
     cardPhoto.addEventListener("click", () => {
       imagePopUpOverlay.classList.toggle("visible");
-      imagePopUpPhoto.classList.toggle("visible");
       imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
       imagePopUpPhoto.setAttribute("alt", cardName);
       imagePopUpName.textContent = cardName;
-      imagePopUpName.classList.toggle("visible");
       console.log("card clicado");
     });
   }
