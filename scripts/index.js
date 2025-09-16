@@ -1,5 +1,6 @@
 import { enableValidation } from "./validate.js";
 import Card from "./card.js";
+import Overlay from "./utils.js";
 
 const editButton = document.querySelector(".profile__button-edit");
 const formSection = document.querySelector(".form");
@@ -11,11 +12,14 @@ const editName = formSection.querySelector(".form__name");
 const editProfession = formSection.querySelector(".form__profession");
 const buttonSubmit = formSection.querySelector(".form__button-submit");
 
+const formOverlayObj = new Overlay(".form__overlay");
+
 // Toggle edição perfil
 editButton.addEventListener("click", () => {
-  formOverlay.classList.toggle("visible");
+  formOverlayObj.open(0);
   editName.setAttribute("placeholder", profileName.textContent);
   editProfession.setAttribute("placeholder", profileProfession.textContent);
+  console.log("clicado");
 });
 
 formCloseButton.addEventListener("click", closeUpForm);
@@ -92,6 +96,22 @@ formCreateButton.addEventListener("click", () => {
   const cardElement = card.addCard(); // MUDANÇA: método addCard() deve retornar o elemento no Card.js
   galleryContainer.prepend(cardElement);
   closeUpForm();
+
+  // Popup de imagem
+  const cardPhoto = cardElement.querySelector(".card__photo");
+  const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
+  const imagePopUpPhoto = document.querySelector(".image-popup__photo");
+  const imagePopUpName = document.querySelector(".image-popup__name");
+  const cardName = cardElement.querySelector(".card__name").textContent;
+
+  cardPhoto.addEventListener("click", () => {
+    imagePopUpOverlay.classList.toggle("visible");
+    imagePopUpPhoto.classList.toggle("visible");
+    imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
+    imagePopUpPhoto.setAttribute("alt", cardName);
+    imagePopUpName.textContent = cardName;
+    imagePopUpName.classList.toggle("visible");
+  });
 });
 
 // MUDANÇA: corrigido para usar a classe Card no carregamento inicial
