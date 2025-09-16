@@ -2,29 +2,33 @@ import { enableValidation } from "./validate.js";
 import Card from "./card.js";
 import Overlay from "./utils.js";
 
+// ==================== PERFIL ====================
+
+// Botões e elementos do perfil
 const editButton = document.querySelector(".profile__button-edit");
 const formSection = document.querySelector(".form");
 const formOverlay = document.querySelector(".form__overlay");
-const formCloseButton = formSection.querySelector(".form__close-button");
+const formCloseButton = formOverlay.querySelector(".form__close-button");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
 const editName = formSection.querySelector(".form__name");
 const editProfession = formSection.querySelector(".form__profession");
 const buttonSubmit = formSection.querySelector(".form__button-submit");
 
-const formOverlayObj = new Overlay(".form__overlay");
+// Alteração: criar instância do Overlay específica para o formulário de perfil
+const editOverlay = new Overlay(".form__overlay");
 
-// Toggle edição perfil
+// Abrir overlay de edição de perfil
 editButton.addEventListener("click", () => {
-  formOverlayObj.open(0);
+  editOverlay.open(0);
   editName.setAttribute("placeholder", profileName.textContent);
   editProfession.setAttribute("placeholder", profileProfession.textContent);
-  console.log("clicado");
 });
 
-formCloseButton.addEventListener("click", closeUpForm);
+// Fechar overlay de perfil
+formCloseButton.addEventListener("click", () => editOverlay.close(0));
 
-// Submissão edição perfil
+// Submissão do formulário de edição de perfil
 buttonSubmit.addEventListener("click", () => {
   const name = editName.value;
   const profession = editProfession.value;
@@ -32,22 +36,18 @@ buttonSubmit.addEventListener("click", () => {
   if (name && profession !== "") {
     profileName.textContent = name;
     profileProfession.textContent = profession;
-    closeUpForm();
+    editOverlay.close(0);
   }
 });
 
-// Fechar formulário popup
-function closeUpForm() {
-  const forms = document.querySelectorAll(".form, .form-add");
-  forms.forEach((form) => {
-    const overlays = form.querySelectorAll(".form__overlay");
-    overlays.forEach((overlay) => {
-      overlay.classList.remove("visible");
-    });
-  });
-}
+// Fechar clicando fora do overlay
+formOverlay.addEventListener("click", (event) => {
+  if (event.target.classList.contains("form__overlay")) editOverlay.close(0);
+});
 
-// Formulário criar cartão
+// ==================== CRIAÇÃO DE CARDS ====================
+
+// Elementos do formulário de adicionar cartão
 const formAddSection = document.querySelector(".form-add");
 const createButton = document.querySelector(".profile__button-add");
 const formAddOverlay = document.querySelector(".form-add__overlay");
@@ -55,33 +55,6 @@ const formAddWindow = formAddOverlay.querySelector(".form-add__content");
 const formAddCloseButton = formAddSection.querySelector(
   ".form-add__close-button"
 );
-
-createButton.addEventListener("click", () => {
-  formAddOverlay.classList.toggle("visible");
-});
-
-// Inputs para fechar formulário
-formAddCloseButton.addEventListener("click", closeUpForm);
-
-formOverlay.addEventListener("click", (event) => {
-  if (event.target.classList.contains("form__overlay")) {
-    closeUpForm();
-  }
-});
-
-formAddOverlay.addEventListener("click", (event) => {
-  if (event.target.classList.contains("form__overlay")) {
-    closeUpForm();
-  }
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeUpForm();
-  }
-});
-
-// abrir formulário de add cartão
 const formCreateButton = formAddSection.querySelector(
   ".form-add__button-submit"
 );
@@ -89,15 +62,29 @@ const formPlaceInput = formAddSection.querySelector(".form__place");
 const formUrlInput = formAddSection.querySelector(".form__url");
 const galleryContainer = document.querySelector(".gallery__content");
 
-// ==================== CRIAÇÃO DE CARDS ====================
+// Alteração: criar instância do Overlay específica para o formulário de adicionar cartão
+const addOverlay = new Overlay(".form-add__overlay");
 
+// Abrir overlay de adicionar cartão
+createButton.addEventListener("click", () => addOverlay.open(0));
+
+// Fechar overlay de adicionar cartão
+formAddCloseButton.addEventListener("click", () => addOverlay.close(0));
+
+// Fechar clicando fora do overlay
+formAddOverlay.addEventListener("click", (event) => {
+  if (event.target.classList.contains("form-add__overlay")) addOverlay.close(0);
+});
+
+// Submissão do formulário de adicionar cartão
 formCreateButton.addEventListener("click", () => {
-  const card = new Card(formPlaceInput.value, formUrlInput.value); // MUDANÇA: agora passa os valores corretos
-  const cardElement = card.addCard(); // MUDANÇA: método addCard() deve retornar o elemento no Card.js
+  const card = new Card(formPlaceInput.value, formUrlInput.value);
+  const cardElement = card.addCard();
   galleryContainer.prepend(cardElement);
-  closeUpForm();
 
-  // Popup de imagem
+  addOverlay.close(0);
+
+  // Popup de imagem do card
   const cardPhoto = cardElement.querySelector(".card__photo");
   const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
   const imagePopUpPhoto = document.querySelector(".image-popup__photo");
@@ -105,16 +92,16 @@ formCreateButton.addEventListener("click", () => {
   const cardName = cardElement.querySelector(".card__name").textContent;
 
   cardPhoto.addEventListener("click", () => {
-    imagePopUpOverlay.classList.toggle("visible");
-    imagePopUpPhoto.classList.toggle("visible");
+    imagePopUpOverlay.classList.add("visible");
+    imagePopUpPhoto.classList.add("visible");
     imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
     imagePopUpPhoto.setAttribute("alt", cardName);
     imagePopUpName.textContent = cardName;
-    imagePopUpName.classList.toggle("visible");
+    imagePopUpName.classList.add("visible");
   });
 });
 
-// MUDANÇA: corrigido para usar a classe Card no carregamento inicial
+// Cards iniciais
 const initialCards = [
   {
     name: "Vale de Yosemite",
@@ -144,34 +131,40 @@ const initialCards = [
 
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link);
-  const cardElement = card.addCard();
-  galleryContainer.prepend(cardElement);
+  galleryContainer.prepend(card.addCard());
 });
 
 // ==================== POPUP DE IMAGEM ====================
-const imagePopUp = document.querySelector(".image-popup");
-const imageCloseButton = document.querySelector(".image-popup__close-button");
+
 const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
 const imagePopUpPhoto = document.querySelector(".image-popup__photo");
+const imagePopUpName = document.querySelector(".image-popup__name");
+const imageCloseButton = document.querySelector(".image-popup__close-button");
 
 function closeCardPopUp() {
   imagePopUpOverlay.classList.remove("visible");
+  imagePopUpPhoto.classList.remove("visible");
+  imagePopUpName.classList.remove("visible");
 }
 
 imageCloseButton.addEventListener("click", closeCardPopUp);
 imagePopUpOverlay.addEventListener("click", closeCardPopUp);
 
+// Evitar fechar popup clicando na própria imagem
+imagePopUpPhoto.addEventListener("click", (event) => event.stopPropagation());
+
+// ==================== FECHAR COM ESCAPE ====================
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    closeCardPopUp();
+    editOverlay.close(0); //
+    addOverlay.close(0); //
+    closeCardPopUp(); //
   }
 });
 
-imagePopUpPhoto.addEventListener("click", (event) => {
-  event.stopPropagation();
-});
-
 // ==================== VALIDAÇÃO ====================
+
 enableValidation({
   formSelector: ".form, .form-add",
   inputSelector: ".form__item",
