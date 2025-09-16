@@ -1,4 +1,5 @@
 import { enableValidation } from "./validate.js";
+import Card from "./card.js";
 
 const editButton = document.querySelector(".profile__button-edit");
 const formSection = document.querySelector(".form");
@@ -84,28 +85,18 @@ const formPlaceInput = formAddSection.querySelector(".form__place");
 const formUrlInput = formAddSection.querySelector(".form__url");
 const galleryContainer = document.querySelector(".gallery__content");
 
-function addCard(placeInput, urlInput) {
-  const cardTemplate = document.querySelector("#card-template").content;
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+// ==================== CRIAÇÃO DE CARDS ====================
 
-  cardElement.querySelector(".card__name").textContent = placeInput;
-  cardElement.querySelector(".card__photo").setAttribute("src", urlInput);
-  cardElement.querySelector(".card__photo").setAttribute("alt", placeInput);
+// MUDANÇA: removi o trecho errado que criava card direto fora de evento
+// Agora a criação é feita apenas no clique do botão + inicialização
+
+formCreateButton.addEventListener("click", () => {
+  const card = new Card(formPlaceInput.value, formUrlInput.value); // MUDANÇA: agora passa os valores corretos
+  const cardElement = card.addCard(); // MUDANÇA: método addCard() deve retornar o elemento no Card.js
   galleryContainer.prepend(cardElement);
+  closeUpForm();
 
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  deleteButton.addEventListener("click", () => cardElement.remove());
-
-  const likeButton = cardElement.querySelector(".card__button");
-  const likeIcon = cardElement.querySelector(".card__icon");
-  likeButton.addEventListener("click", () => {
-    if (likeIcon.getAttribute("src").includes("heart_icon.png")) {
-      likeIcon.setAttribute("src", "images/heart_icon_black.png");
-    } else {
-      likeIcon.setAttribute("src", "images/heart_icon.png");
-    }
-  });
-
+  // Popup de imagem
   const cardPhoto = cardElement.querySelector(".card__photo");
   const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
   const imagePopUpPhoto = document.querySelector(".image-popup__photo");
@@ -120,13 +111,9 @@ function addCard(placeInput, urlInput) {
     imagePopUpName.textContent = cardName;
     imagePopUpName.classList.toggle("visible");
   });
-}
-
-formCreateButton.addEventListener("click", () => {
-  addCard(formPlaceInput.value, formUrlInput.value);
-  closeUpForm();
 });
 
+// MUDANÇA: corrigido para usar a classe Card no carregamento inicial
 const initialCards = [
   {
     name: "Vale de Yosemite",
@@ -154,9 +141,13 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach((card) => addCard(card.name, card.link));
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link);
+  const cardElement = card.addCard();
+  galleryContainer.prepend(cardElement);
+});
 
-// Popup de imagem
+// ==================== POPUP DE IMAGEM ====================
 const imagePopUp = document.querySelector(".image-popup");
 const imageCloseButton = document.querySelector(".image-popup__close-button");
 const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
@@ -167,7 +158,6 @@ function closeCardPopUp() {
 }
 
 imageCloseButton.addEventListener("click", closeCardPopUp);
-
 imagePopUpOverlay.addEventListener("click", closeCardPopUp);
 
 document.addEventListener("keydown", (event) => {
