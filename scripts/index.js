@@ -1,4 +1,4 @@
-import { enableValidation } from "./validate.js";
+import FormValidation from "./FormValidation.js";
 import Card from "./card.js";
 import Overlay from "./utils.js";
 
@@ -138,8 +138,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 // ==================== VALIDAÇÃO ====================
-
-enableValidation({
+new FormValidation({
   formSelector: ".form, .form-add",
   inputSelector: ".form__item",
   submitButtonSelector: ".form__button-submit",
