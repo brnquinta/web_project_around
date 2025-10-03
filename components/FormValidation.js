@@ -1,3 +1,5 @@
+import { formValidationConfig } from "../utils/constants";
+
 // FormValidation.js
 export default class FormValidation {
   constructor(config) {
