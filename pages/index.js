@@ -1,17 +1,24 @@
-import Card from "./components/card.js";
-import Overlay from "./utils.js";
-import { initialCards } from "./utils/constants.js";
+import Card from "../components/card.js";
+import Overlay from "../utils/constants.js";
+import { initialCards } from "../utils/constants.js";
+import FormValidation from "../components/FormValidation.js";
+import { formValidationConfig } from "../utils/constants.js";
+
+// ==================== VALIDAÇÃO ====================
+new FormValidation(formValidationConfig);
+
 // ==================== PERFIL ====================
 
 const editButton = document.querySelector(".profile__button-edit");
-const formSection = document.querySelector(".form");
 const formOverlay = document.querySelector(".form__overlay");
 const formCloseButton = formOverlay.querySelector(".form__close-button");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
-const editName = formSection.querySelector(".form__name");
-const editProfession = formSection.querySelector(".form__profession");
-const buttonSubmit = formSection.querySelector(".form__button-submit");
+const editName = document.querySelector(".form .form__name");
+const editProfession = document.querySelector(".form .form__profession");
+
+// MUDE PARA O FORM REAL (que tem o botão)
+const formSection = document.querySelector(".form .form__content");
 
 const editOverlay = new Overlay(".form__overlay");
 
@@ -23,7 +30,8 @@ editButton.addEventListener("click", () => {
 
 formCloseButton.addEventListener("click", () => editOverlay.close(0));
 
-buttonSubmit.addEventListener("click", () => {
+formSection.addEventListener("submit", (event) => {
+  event.preventDefault();
   const name = editName.value;
   const profession = editProfession.value;
 
@@ -31,6 +39,7 @@ buttonSubmit.addEventListener("click", () => {
     profileName.textContent = name;
     profileProfession.textContent = profession;
     editOverlay.close(0);
+    formSection.reset();
   }
 });
 
@@ -40,18 +49,17 @@ formOverlay.addEventListener("click", (event) => {
 
 // ==================== CRIAÇÃO DE CARDS ====================
 
-const formAddSection = document.querySelector(".form-add");
 const createButton = document.querySelector(".profile__button-add");
 const formAddOverlay = document.querySelector(".form-add__overlay");
-const formAddCloseButton = formAddSection.querySelector(
+const formAddCloseButton = formAddOverlay.querySelector(
   ".form-add__close-button"
 );
-const formCreateButton = formAddSection.querySelector(
-  ".form-add__button-submit"
-);
-const formPlaceInput = formAddSection.querySelector(".form__place");
-const formUrlInput = formAddSection.querySelector(".form__url");
+const formPlaceInput = document.querySelector(".form-add .form__place");
+const formUrlInput = document.querySelector(".form-add .form__url");
 const galleryContainer = document.querySelector(".gallery__content");
+
+// MUDE PARA O FORM REAL (que tem o botão)
+const formAddSection = document.querySelector(".form-add .form__group");
 
 const addOverlay = new Overlay(".form-add__overlay");
 
@@ -61,11 +69,14 @@ formAddOverlay.addEventListener("click", (event) => {
   if (event.target.classList.contains("form-add__overlay")) addOverlay.close(0);
 });
 
-formCreateButton.addEventListener("click", () => {
+formAddSection.addEventListener("submit", (event) => {
+  event.preventDefault();
+  console.log("✅ SUBMIT FORM ADD CARD - FUNCIONOU!");
   const card = new Card(formPlaceInput.value, formUrlInput.value);
   const cardElement = card.addCard();
   galleryContainer.prepend(cardElement);
   addOverlay.close(0);
+  formAddSection.reset();
 
   const cardPhoto = cardElement.querySelector(".card__photo");
   const imagePopUpOverlay = document.querySelector(".image-popup__overlay");

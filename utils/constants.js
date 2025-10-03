@@ -48,9 +48,9 @@ export const initialCards = [
 
 // ==================== VALIDAÇÃO ====================
 export const formValidationConfig = {
-  formSelector: ".form, .form-add",
+  formSelector: ".form.form__group",
   inputSelector: ".form__item",
-  submitButtonSelector: ".form__button-submit",
+  submitButtonSelector: ".form__button-submit, .form-add__button-submit",
   inactiveButtonClass: "form__button-submit--invalid",
   inputErrorClass: "form__item--invalid",
   errorClass: "form__validation",

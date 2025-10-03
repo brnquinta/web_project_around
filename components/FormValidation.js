@@ -1,11 +1,10 @@
-import { formValidationConfig } from "../utils/constants";
-
 // FormValidation.js
 export default class FormValidation {
   constructor(config) {
     this._config = config;
     this._forms = document.querySelectorAll(config.formSelector);
 
+    console.log("Forms encontrados:", this._forms);
     this._forms.forEach((form) => this._setEventListeners(form));
   }
 
