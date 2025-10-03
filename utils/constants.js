@@ -48,10 +48,17 @@ export const initialCards = [
 
 // ==================== VALIDAÇÃO ====================
 export const formValidationConfig = {
-  formSelector: ".form.form__group",
+  formSelector: ".form__content",
   inputSelector: ".form__item",
   submitButtonSelector: ".form__button-submit, .form-add__button-submit",
   inactiveButtonClass: "form__button-submit--invalid",
   inputErrorClass: "form__item--invalid",
   errorClass: "form__validation",
+};
+
+// ==================== Card ====================
+
+export const cardsConfig = {
+  containerSelector: ".gallery__content",
+  cardSelector: "#card-template",
 };

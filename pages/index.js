@@ -1,8 +1,9 @@
 import Card from "../components/card.js";
 import Overlay from "../utils/constants.js";
-import { initialCards } from "../utils/constants.js";
+import { initialCards, cardsConfig } from "../utils/constants.js";
 import FormValidation from "../components/FormValidation.js";
 import { formValidationConfig } from "../utils/constants.js";
+import Section from "../components/section.js";
 
 // ==================== VALIDAÇÃO ====================
 new FormValidation(formValidationConfig);
@@ -56,12 +57,30 @@ const formAddCloseButton = formAddOverlay.querySelector(
 );
 const formPlaceInput = document.querySelector(".form-add .form__place");
 const formUrlInput = document.querySelector(".form-add .form__url");
-const galleryContainer = document.querySelector(".gallery__content");
 
 // MUDE PARA O FORM REAL (que tem o botão)
-const formAddSection = document.querySelector(".form-add .form__group");
+const formAddSection = document.querySelector(".form-add .form__content");
 
 const addOverlay = new Overlay(".form-add__overlay");
+
+// Criação da Section para os cards
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: null,
+  },
+  cardsConfig.containerSelector
+);
+
+// Define o renderer após a criação
+cardList.setRenderer((cardData) => {
+  const card = new Card(cardData.name, cardData.link);
+  const cardElement = card.addCard();
+  cardList.addItem(cardElement);
+});
+
+// Renderiza os cards iniciais
+cardList.renderItems();
 
 createButton.addEventListener("click", () => addOverlay.open(0));
 formAddCloseButton.addEventListener("click", () => addOverlay.close(0));
@@ -74,27 +93,9 @@ formAddSection.addEventListener("submit", (event) => {
   console.log("✅ SUBMIT FORM ADD CARD - FUNCIONOU!");
   const card = new Card(formPlaceInput.value, formUrlInput.value);
   const cardElement = card.addCard();
-  galleryContainer.prepend(cardElement);
+  cardList.addItem(cardElement);
   addOverlay.close(0);
   formAddSection.reset();
-
-  const cardPhoto = cardElement.querySelector(".card__photo");
-  const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
-  const imagePopUpPhoto = document.querySelector(".image-popup__photo");
-  const imagePopUpName = document.querySelector(".image-popup__name");
-  const cardName = cardElement.querySelector(".card__name").textContent;
-
-  cardPhoto.addEventListener("click", () => {
-    imagePopUpOverlay.classList.add("visible");
-    imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
-    imagePopUpPhoto.setAttribute("alt", cardName);
-    imagePopUpName.textContent = cardName;
-  });
-});
-
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link);
-  galleryContainer.prepend(card.addCard());
 });
 
 // ==================== POPUP DE IMAGEM ====================
