@@ -90,7 +90,6 @@ formAddOverlay.addEventListener("click", (event) => {
 
 formAddSection.addEventListener("submit", (event) => {
   event.preventDefault();
-  console.log("✅ SUBMIT FORM ADD CARD - FUNCIONOU!");
   const card = new Card(formPlaceInput.value, formUrlInput.value);
   const cardElement = card.addCard();
   cardList.addItem(cardElement);

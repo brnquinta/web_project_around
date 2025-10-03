@@ -21,7 +21,6 @@ export default class Card {
     const deleteButton = cardElement.querySelector(".card__delete-button");
     deleteButton.addEventListener("click", () => {
       this._handleDelete(cardElement);
-      console.log("botão clicado");
     });
 
     // botão de like
@@ -60,7 +59,6 @@ export default class Card {
       imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
       imagePopUpPhoto.setAttribute("alt", cardName);
       imagePopUpName.textContent = cardName;
-      console.log("card clicado");
     });
   }
 }
