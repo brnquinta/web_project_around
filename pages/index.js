@@ -1,5 +1,5 @@
 import Card from "../components/card.js";
-import Overlay from "../utils/constants.js";
+import { Popup, PopupWithImage } from "../components/Popup.js";
 import {
   initialCards,
   cardsConfig,
@@ -13,117 +13,72 @@ import UserInfo from "../components/userInfo.js";
 // ==================== VALIDAÇÃO ====================
 new FormValidation(formValidationConfig);
 
-// ==================== PERFIL ====================
+// ==================== POPUPS ====================
 
+// Instâncias separadas de popup
+const profilePopup = new Popup(".form__overlay");
+profilePopup.setEventListeners();
+
+const addCardPopup = new Popup(".form-add__overlay");
+addCardPopup.setEventListeners();
+
+const imagePopup = new PopupWithImage(".image-popup__overlay");
+imagePopup.setEventListeners();
+
+// ==================== PERFIL ====================
 const editButton = document.querySelector(".profile__button-edit");
-const formOverlay = document.querySelector(".form__overlay");
-const formCloseButton = formOverlay.querySelector(".form__close-button");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
 const editName = document.querySelector(".form .form__name");
 const editProfession = document.querySelector(".form .form__profession");
-
-// MUDE PARA O FORM REAL (que tem o botão)
 const formSection = document.querySelector(".form .form__content");
-
-const editOverlay = new Overlay(".form__overlay");
-
-editButton.addEventListener("click", () => {
-  editOverlay.open(0);
-  editName.setAttribute("placeholder", profileName.textContent);
-  editProfession.setAttribute("placeholder", profileProfession.textContent);
-});
-
-formCloseButton.addEventListener("click", () => editOverlay.close(0));
 
 const userInfo = new UserInfo(
   document.querySelector(profileConfig.profileNameSelector),
   document.querySelector(profileConfig.profileProfessionSelector)
 );
 
+editButton.addEventListener("click", () => {
+  profilePopup.open();
+  editName.value = profileName.textContent;
+  editProfession.value = profileProfession.textContent;
+});
+
 formSection.addEventListener("submit", (event) => {
   event.preventDefault();
-  const name = editName.value;
-  const profession = editProfession.value;
-
-  if (name && profession !== "") {
-    console.log("botão clicado");
-    userInfo.setUserInfo(name, profession);
-    editOverlay.close(0);
-    formSection.reset();
-  }
+  userInfo.setUserInfo(editName.value, editProfession.value);
+  profilePopup.close();
+  formSection.reset();
 });
 
-formOverlay.addEventListener("click", (event) => {
-  if (event.target.classList.contains("form__overlay")) editOverlay.close(0);
-});
-
-// ==================== CRIAÇÃO DE CARDS ====================
-
+// ==================== CARDS ====================
 const createButton = document.querySelector(".profile__button-add");
-const formAddOverlay = document.querySelector(".form-add__overlay");
-const formAddCloseButton = formAddOverlay.querySelector(
-  ".form-add__close-button"
-);
 const formPlaceInput = document.querySelector(".form-add .form__place");
 const formUrlInput = document.querySelector(".form-add .form__url");
-
-// MUDE PARA O FORM REAL (que tem o botão)
 const formAddSection = document.querySelector(".form-add .form__content");
-
-const addOverlay = new Overlay(".form-add__overlay");
 
 // Criação da Section para os cards
 const cardList = new Section(
-  {
-    items: initialCards,
-  },
+  { items: initialCards },
   cardsConfig.containerSelector
 );
 
-// Define o renderer após a criação
+// Renderer dos cards
 cardList.setRenderer((cardData) => {
-  const card = new Card(cardData.name, cardData.link);
-  const cardElement = card.addCard();
-  cardList.addItem(cardElement);
+  const card = new Card(cardData.name, cardData.link, imagePopup);
+  cardList.addItem(card.addCard());
 });
 
 // Renderiza os cards iniciais
 cardList.renderItems();
 
-createButton.addEventListener("click", () => addOverlay.open(0));
-formAddCloseButton.addEventListener("click", () => addOverlay.close(0));
-formAddOverlay.addEventListener("click", (event) => {
-  if (event.target.classList.contains("form-add__overlay")) addOverlay.close(0);
-});
+// Abrir popup adicionar card
+createButton.addEventListener("click", () => addCardPopup.open());
 
 formAddSection.addEventListener("submit", (event) => {
   event.preventDefault();
-  const card = new Card(formPlaceInput.value, formUrlInput.value);
-  const cardElement = card.addCard();
-  cardList.addItem(cardElement);
-  addOverlay.close(0);
+  const card = new Card(formPlaceInput.value, formUrlInput.value, imagePopup);
+  cardList.addItem(card.addCard());
+  addCardPopup.close();
   formAddSection.reset();
-});
-
-// ==================== POPUP DE IMAGEM ====================
-
-const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
-const imagePopUpPhoto = document.querySelector(".image-popup__photo");
-
-function closeCardPopUp() {
-  imagePopUpOverlay.classList.remove("visible");
-}
-
-imagePopUpOverlay.addEventListener("click", closeCardPopUp);
-imagePopUpPhoto.addEventListener("click", (event) => event.stopPropagation());
-
-// ==================== FECHAR COM ESCAPE ====================
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    editOverlay.close(0);
-    addOverlay.close(0);
-    closeCardPopUp();
-  }
 });
