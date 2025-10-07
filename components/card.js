@@ -1,8 +1,11 @@
 export default class Card {
-  constructor(name, link) {
+  constructor(name, link, handleImageClick) {
+    // ← Adicione este parâmetro
     this._name = name;
     this._link = link;
+    this._handleImageClick = handleImageClick; // ← Guarde a função
   }
+
   addCard() {
     const cardTemplate = document.querySelector("#card-template").content;
     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -15,7 +18,6 @@ export default class Card {
     return cardElement;
   }
 
-  // método privado para adicionar eventos
   _setEventListeners(cardElement) {
     // botão de deletar
     const deleteButton = cardElement.querySelector(".card__delete-button");
@@ -30,15 +32,17 @@ export default class Card {
       this._handleLike(likeIcon);
     });
 
-    this._HandleVisible(cardElement);
+    // Imagem - usa a função passada no construtor
+    const cardPhoto = cardElement.querySelector(".card__photo");
+    cardPhoto.addEventListener("click", () => {
+      this._handleImageClick(this._name, this._link); // ← Chama o popup corretamente
+    });
   }
 
-  // método para deletar
   _handleDelete(cardElement) {
     cardElement.remove();
   }
 
-  // método para dar like
   _handleLike(likeIcon) {
     if (likeIcon.getAttribute("src").includes("heart_icon.png")) {
       likeIcon.setAttribute("src", "images/heart_icon_black.png");
@@ -47,18 +51,5 @@ export default class Card {
     }
   }
 
-  _HandleVisible(cardElement) {
-    const cardPhoto = cardElement.querySelector(".card__photo");
-    const imagePopUpOverlay = document.querySelector(".image-popup__overlay");
-    const imagePopUpPhoto = document.querySelector(".image-popup__photo");
-    const imagePopUpName = document.querySelector(".image-popup__name");
-    const cardName = cardElement.querySelector(".card__name").textContent;
-
-    cardPhoto.addEventListener("click", () => {
-      imagePopUpOverlay.classList.toggle("visible");
-      imagePopUpPhoto.setAttribute("src", cardPhoto.getAttribute("src"));
-      imagePopUpPhoto.setAttribute("alt", cardName);
-      imagePopUpName.textContent = cardName;
-    });
-  }
+  // REMOVA o método _HandleVisible completamente!
 }

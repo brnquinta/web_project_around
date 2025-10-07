@@ -63,9 +63,11 @@ const cardList = new Section(
   cardsConfig.containerSelector
 );
 
-// Renderer dos cards
+// Renderer dos cards - CORRIGIDO
 cardList.setRenderer((cardData) => {
-  const card = new Card(cardData.name, cardData.link, imagePopup);
+  const card = new Card(cardData.name, cardData.link, (name, link) => {
+    imagePopup.open({ name, link }); // ← Agora chama o popup corretamente
+  });
   cardList.addItem(card.addCard());
 });
 

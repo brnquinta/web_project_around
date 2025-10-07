@@ -10,6 +10,9 @@ class Popup {
 
     // Overlay é o próprio popup
     this.overlay = this.popup;
+
+    // Bind do método ESC
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   // Abre o popup
@@ -26,9 +29,10 @@ class Popup {
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  // Fecha com ESC - método base que pode ser sobrescrito
+  // Fecha com ESC
   _handleEscClose(event) {
     if (event.key === "Escape") {
+      console.log("ESC pressionado - Fechando popup");
       this.close();
     }
   }
@@ -50,21 +54,32 @@ class PopupWithImage extends Popup {
     super(selector);
     this._popupImage = this.popup.querySelector(".image-popup__photo");
 
-    // CORREÇÃO: Faz bind do método específico desta classe
-    this._handleEscClose = this._handleEscClose.bind(this);
+    // SOLUÇÃO: Cria um handler ESC específico para esta instância
+    this._handleImageEscClose = (event) => {
+      if (event.key === "Escape") {
+        console.log("ESC no PopupWithImage - Fechando!");
+        this.close();
+      }
+    };
   }
 
   open({ name, link }) {
     this._popupImage.src = link;
     this._popupImage.alt = name;
-    super.open();
+
+    // Remove qualquer listener anterior e adiciona o específico
+    document.removeEventListener("keydown", this._handleEscClose);
+    document.removeEventListener("keydown", this._handleImageEscClose);
+
+    this.popup.classList.add("overlay--active");
+    this.popup.classList.add("visible");
+
+    document.addEventListener("keydown", this._handleImageEscClose);
   }
 
-  // Método específico para PopupWithImage
-  _handleEscClose(event) {
-    if (event.key === "Escape") {
-      super.close();
-    }
+  close() {
+    super.close();
+    document.removeEventListener("keydown", this._handleImageEscClose);
   }
 }
 
