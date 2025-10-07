@@ -1,3 +1,9 @@
+// ==================== Profile ====================
+export const profileConfig = {
+  profileNameSelector: ".profile__name",
+  profileProfessionSelector: ".profile__profession",
+};
+
 export default class Overlay {
   constructor(selector) {
     this.overlays = document.querySelectorAll(selector);

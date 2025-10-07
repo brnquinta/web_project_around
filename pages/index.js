@@ -1,9 +1,14 @@
 import Card from "../components/card.js";
 import Overlay from "../utils/constants.js";
-import { initialCards, cardsConfig } from "../utils/constants.js";
+import {
+  initialCards,
+  cardsConfig,
+  profileConfig,
+} from "../utils/constants.js";
 import FormValidation from "../components/FormValidation.js";
 import { formValidationConfig } from "../utils/constants.js";
 import Section from "../components/section.js";
+import UserInfo from "../components/userInfo.js";
 
 // ==================== VALIDAÇÃO ====================
 new FormValidation(formValidationConfig);
@@ -31,14 +36,19 @@ editButton.addEventListener("click", () => {
 
 formCloseButton.addEventListener("click", () => editOverlay.close(0));
 
+const userInfo = new UserInfo(
+  document.querySelector(profileConfig.profileNameSelector),
+  document.querySelector(profileConfig.profileProfessionSelector)
+);
+
 formSection.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = editName.value;
   const profession = editProfession.value;
 
   if (name && profession !== "") {
-    profileName.textContent = name;
-    profileProfession.textContent = profession;
+    console.log("botão clicado");
+    userInfo.setUserInfo(name, profession);
     editOverlay.close(0);
     formSection.reset();
   }
@@ -67,7 +77,6 @@ const addOverlay = new Overlay(".form-add__overlay");
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: null,
   },
   cardsConfig.containerSelector
 );
