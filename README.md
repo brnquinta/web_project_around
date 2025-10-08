@@ -1,5 +1,8 @@
 # Around
 
+🔗 Link do projeto:
+Acesse o Around no GitHub Pages
+
 ## Descrição
 
 Around é um projeto de galeria / rede social leve, onde o usuário pode editar seu perfil (nome, profissão) e adicionar novos locais com nome e imagem. Também permite visualizar uma imagem em tamanho ampliado ao clicar no card.
