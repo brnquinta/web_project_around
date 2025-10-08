@@ -1,24 +1,15 @@
-# Around - Projeto Web Responsivo
+# Around
 
-Este é um projeto front-end desenvolvido com **HTML**, **CSS** e **JavaScript** puro. A ideia é criar uma página de perfil com uma galeria de fotos interativa e elementos dinâmicos.
+## Descrição
 
-🔗 **Link do projeto:**  
-[Acesse o Around no GitHub Pages](https://brnquinta.github.io/web_project_around/)
+Around é um projeto de galeria / rede social leve, onde o usuário pode editar seu perfil (nome, profissão) e adicionar novos locais com nome e imagem. Também permite visualizar uma imagem em tamanho ampliado ao clicar no card.
 
-## ✨ Funcionalidades atuais
+## Tecnologias e técnicas utilizadas
 
-- Curtir cards da galeria com botão de "like" (ícone muda dinamicamente).
-- Editar nome e profissão do perfil por meio de um formulário modal.
-- Validação simples de campos obrigatórios no formulário.
-- Interface responsiva e estilizada com CSS.
-
-## 🛠 Tecnologias
-
-- HTML5
-- CSS3
-- JavaScript (DOM Manipulation)
-
----
-
-Mais funcionalidades serão adicionadas futuramente.  
-Sinta-se à vontade para clonar e explorar o código!
+- **HTML5 & CSS3** — estrutura e estilo da página
+- **JavaScript (ES6+)** — lógica de interação, manipulação de DOM, classes
+- **Módulos JS (import/export)** — para organizar código em diferentes arquivos
+- **Arquitetura orientada a componentes** — classes como `Popup`, `PopupWithForm`, `Card`, `Section`, `UserInfo`
+- **Validação de formulários** — para garantir que os inputs estejam corretos
+- **Uso de seletores e configuração externa** — constantes de seletores exportadas/importadas
+- **Desenvolvimento responsivo / UX básico** — para funcionar bem em diferentes tamanhos de tela
