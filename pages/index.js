@@ -1,9 +1,19 @@
 import Card from "../components/card.js";
-import { Popup, PopupWithImage } from "../components/Popup.js";
+import { PopupWithImage, PopupWithForm } from "../components/Popup.js";
 import {
+  profileConfig,
+  editButton,
+  profileName,
+  profileProfession,
+  editName,
+  editProfession,
+  formSection,
   initialCards,
   cardsConfig,
-  profileConfig,
+  createButton,
+  formPlaceInput,
+  formUrlInput,
+  formAddSection,
 } from "../utils/constants.js";
 import FormValidation from "../components/FormValidation.js";
 import { formValidationConfig } from "../utils/constants.js";
@@ -16,22 +26,16 @@ new FormValidation(formValidationConfig);
 // ==================== POPUPS ====================
 
 // Instâncias separadas de popup
-const profilePopup = new Popup(".form__overlay");
+const profilePopup = new PopupWithForm(".form__overlay");
 profilePopup.setEventListeners();
 
-const addCardPopup = new Popup(".form-add__overlay");
+const addCardPopup = new PopupWithForm(".form-add__overlay");
 addCardPopup.setEventListeners();
 
 const imagePopup = new PopupWithImage(".image-popup__overlay");
 imagePopup.setEventListeners();
 
 // ==================== PERFIL ====================
-const editButton = document.querySelector(".profile__button-edit");
-const profileName = document.querySelector(".profile__name");
-const profileProfession = document.querySelector(".profile__profession");
-const editName = document.querySelector(".form .form__name");
-const editProfession = document.querySelector(".form .form__profession");
-const formSection = document.querySelector(".form .form__content");
 
 const userInfo = new UserInfo(
   document.querySelector(profileConfig.profileNameSelector),
@@ -52,10 +56,6 @@ formSection.addEventListener("submit", (event) => {
 });
 
 // ==================== CARDS ====================
-const createButton = document.querySelector(".profile__button-add");
-const formPlaceInput = document.querySelector(".form-add .form__place");
-const formUrlInput = document.querySelector(".form-add .form__url");
-const formAddSection = document.querySelector(".form-add .form__content");
 
 // Criação da Section para os cards
 const cardList = new Section(
@@ -63,10 +63,10 @@ const cardList = new Section(
   cardsConfig.containerSelector
 );
 
-// Renderer dos cards - CORRIGIDO
+// Renderer dos cards
 cardList.setRenderer((cardData) => {
   const card = new Card(cardData.name, cardData.link, (name, link) => {
-    imagePopup.open({ name, link }); // ← Agora chama o popup corretamente
+    imagePopup.open({ name, link });
   });
   cardList.addItem(card.addCard());
 });

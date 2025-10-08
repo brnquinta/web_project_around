@@ -54,7 +54,7 @@ class PopupWithImage extends Popup {
     super(selector);
     this._popupImage = this.popup.querySelector(".image-popup__photo");
 
-    // SOLUÇÃO: Cria um handler ESC específico para esta instância
+    // Cria um handler ESC específico para esta instância
     this._handleImageEscClose = (event) => {
       if (event.key === "Escape") {
         console.log("ESC no PopupWithImage - Fechando!");
@@ -83,4 +83,34 @@ class PopupWithImage extends Popup {
   }
 }
 
-export { Popup, PopupWithImage };
+class PopupWithForm extends Popup {
+  constructor(selector, handleFormSubmit) {
+    super(selector);
+    this._form = this.popup.querySelector("form");
+    this._handleFormSubmit = handleFormSubmit;
+  }
+
+  _getInputValues() {
+    const inputs = this._form.querySelectorAll("input");
+    const formValues = {};
+    inputs.forEach((input) => {
+      formValues[input.name] = input.value;
+    });
+    return formValues;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+    });
+  }
+
+  close() {
+    super.close();
+    this._form.reset();
+  }
+}
+
+export { Popup, PopupWithImage, PopupWithForm };

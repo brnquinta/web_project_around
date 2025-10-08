@@ -3,6 +3,12 @@ export const profileConfig = {
   profileNameSelector: ".profile__name",
   profileProfessionSelector: ".profile__profession",
 };
+export const editButton = document.querySelector(".profile__button-edit");
+export const profileName = document.querySelector(".profile__name");
+export const profileProfession = document.querySelector(".profile__profession");
+export const editName = document.querySelector(".form .form__name");
+export const editProfession = document.querySelector(".form .form__profession");
+export const formSection = document.querySelector(".form .form__content");
 
 // Cards iniciais
 export const initialCards = [
@@ -48,3 +54,9 @@ export const cardsConfig = {
   containerSelector: ".gallery__content",
   cardSelector: "#card-template",
 };
+export const createButton = document.querySelector(".profile__button-add");
+export const formPlaceInput = document.querySelector(".form-add .form__place");
+export const formUrlInput = document.querySelector(".form-add .form__url");
+export const formAddSection = document.querySelector(
+  ".form-add .form__content"
+);

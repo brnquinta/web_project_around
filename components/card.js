@@ -1,9 +1,8 @@
 export default class Card {
   constructor(name, link, handleImageClick) {
-    // ← Adicione este parâmetro
     this._name = name;
     this._link = link;
-    this._handleImageClick = handleImageClick; // ← Guarde a função
+    this._handleImageClick = handleImageClick;
   }
 
   addCard() {
@@ -35,7 +34,7 @@ export default class Card {
     // Imagem - usa a função passada no construtor
     const cardPhoto = cardElement.querySelector(".card__photo");
     cardPhoto.addEventListener("click", () => {
-      this._handleImageClick(this._name, this._link); // ← Chama o popup corretamente
+      this._handleImageClick(this._name, this._link);
     });
   }
 
@@ -50,6 +49,4 @@ export default class Card {
       likeIcon.setAttribute("src", "images/heart_icon.png");
     }
   }
-
-  // REMOVA o método _HandleVisible completamente!
 }
