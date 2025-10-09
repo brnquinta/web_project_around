@@ -60,3 +60,7 @@ export const formUrlInput = document.querySelector(".form-add .form__url");
 export const formAddSection = document.querySelector(
   ".form-add .form__content"
 );
+
+// ==================== Footer ====================
+export const footerCopy = document.querySelector(".footer__copy");
+export const currentYear = new Date().getFullYear();

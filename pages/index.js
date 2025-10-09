@@ -16,6 +16,8 @@ import {
   formPlaceInput,
   formUrlInput,
   formAddSection,
+  footerCopy,
+  currentYear,
 } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import { formValidationConfig } from "../utils/constants.js";
@@ -87,3 +89,5 @@ formAddSection.addEventListener("submit", (event) => {
   addCardPopup.close();
   formAddSection.reset();
 });
+// Atualiza o ano do footer
+footerCopy.innerHTML = `&copy;${currentYear} Around The U.S.`;
