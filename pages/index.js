@@ -1,5 +1,7 @@
 import Card from "../components/card.js";
-import { PopupWithImage, PopupWithForm } from "../components/Popup.js";
+
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 import {
   profileConfig,
   editButton,
@@ -15,13 +17,14 @@ import {
   formUrlInput,
   formAddSection,
 } from "../utils/constants.js";
-import FormValidation from "../components/FormValidation.js";
+import FormValidator from "../components/FormValidator.js";
 import { formValidationConfig } from "../utils/constants.js";
 import Section from "../components/section.js";
 import UserInfo from "../components/userInfo.js";
 
 // ==================== VALIDAÇÃO ====================
-new FormValidation(formValidationConfig);
+const formValidator = new FormValidator(formValidationConfig);
+formValidator.enableValidation();
 
 // ==================== POPUPS ====================
 

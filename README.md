@@ -1,7 +1,7 @@
 # Around
 
-🔗 Link do projeto:
-Acesse o Around no GitHub Pages
+🔗 **Link do projeto:**  
+[Acesse o Around no GitHub Pages](https://brnquinta.github.io/web_project_around/)
 
 ## Descrição
 

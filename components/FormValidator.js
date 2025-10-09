@@ -1,10 +1,11 @@
-// FormValidation.js
-export default class FormValidation {
+export default class FormValidator {
   constructor(config) {
     this._config = config;
     this._forms = document.querySelectorAll(config.formSelector);
+  }
 
-    console.log("Forms encontrados:", this._forms);
+  // método público para ativar a validação
+  enableValidation() {
     this._forms.forEach((form) => this._setEventListeners(form));
   }
 

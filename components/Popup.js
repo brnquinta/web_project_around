@@ -1,5 +1,5 @@
-// ==================== CLASSES DE POPUP ====================
-class Popup {
+// Popup.js
+export default class Popup {
   constructor(selector) {
     this.popup = document.querySelector(selector);
 
@@ -32,7 +32,6 @@ class Popup {
   // Fecha com ESC
   _handleEscClose(event) {
     if (event.key === "Escape") {
-      console.log("ESC pressionado - Fechando popup");
       this.close();
     }
   }
@@ -48,69 +47,3 @@ class Popup {
     });
   }
 }
-
-class PopupWithImage extends Popup {
-  constructor(selector) {
-    super(selector);
-    this._popupImage = this.popup.querySelector(".image-popup__photo");
-
-    // Cria um handler ESC específico para esta instância
-    this._handleImageEscClose = (event) => {
-      if (event.key === "Escape") {
-        console.log("ESC no PopupWithImage - Fechando!");
-        this.close();
-      }
-    };
-  }
-
-  open({ name, link }) {
-    this._popupImage.src = link;
-    this._popupImage.alt = name;
-
-    // Remove qualquer listener anterior e adiciona o específico
-    document.removeEventListener("keydown", this._handleEscClose);
-    document.removeEventListener("keydown", this._handleImageEscClose);
-
-    this.popup.classList.add("overlay--active");
-    this.popup.classList.add("visible");
-
-    document.addEventListener("keydown", this._handleImageEscClose);
-  }
-
-  close() {
-    super.close();
-    document.removeEventListener("keydown", this._handleImageEscClose);
-  }
-}
-
-class PopupWithForm extends Popup {
-  constructor(selector, handleFormSubmit) {
-    super(selector);
-    this._form = this.popup.querySelector("form");
-    this._handleFormSubmit = handleFormSubmit;
-  }
-
-  _getInputValues() {
-    const inputs = this._form.querySelectorAll("input");
-    const formValues = {};
-    inputs.forEach((input) => {
-      formValues[input.name] = input.value;
-    });
-    return formValues;
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-    this._form.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
-    });
-  }
-
-  close() {
-    super.close();
-    this._form.reset();
-  }
-}
-
-export { Popup, PopupWithImage, PopupWithForm };
