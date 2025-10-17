@@ -1,3 +1,4 @@
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -24,6 +25,15 @@ import { formValidationConfig } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 
+// ==================== Conecta a Api ====================
+const api = new Api({
+  baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
+  headers: {
+    authorization: "58b0b10b-b6fe-4366-95fc-c7e6d47a6646",
+    "Content-Type": "application/json",
+  },
+});
+
 // ==================== VALIDAÇÃO ====================
 const formValidator = new FormValidator(formValidationConfig);
 formValidator.enableValidation();
@@ -31,7 +41,12 @@ formValidator.enableValidation();
 // ==================== POPUPS ====================
 
 // Instâncias separadas de popup
-const profilePopup = new PopupWithForm(".form__overlay");
+const profilePopup = new PopupWithForm(".form__overlay", (formValues) => {
+  userInfo.setUserInfo(formValues.name, formValues.about);
+  profilePopup.close();
+});
+profilePopup.setEventListeners();
+
 profilePopup.setEventListeners();
 
 const addCardPopup = new PopupWithForm(".form-add__overlay");
@@ -46,6 +61,17 @@ const userInfo = new UserInfo(
   document.querySelector(profileConfig.profileNameSelector),
   document.querySelector(profileConfig.profileProfessionSelector)
 );
+
+api.getAppInfo().then(([cards, userData]) => {
+  console.log(userData);
+  userData.descript = userData.profession;
+  UserInfo.setUserInfo;
+  cardList.renderItems(cards);
+
+  console.log(cards);
+  userData;
+  cards;
+});
 
 editButton.addEventListener("click", () => {
   profilePopup.open();
@@ -63,10 +89,10 @@ formSection.addEventListener("submit", (event) => {
 // ==================== CARDS ====================
 
 // Criação da Section para os cards
-const cardList = new Section(
-  { items: initialCards },
-  cardsConfig.containerSelector
-);
+
+console.log("api", api);
+
+const cardList = new Section({ items: [] }, cardsConfig.containerSelector);
 
 // Renderer dos cards
 cardList.setRenderer((cardData) => {
