@@ -84,7 +84,7 @@
                 maxlength="40"
                 type="text"
                 id="nome"
-                name="nome"
+                name="name"
                 required
               />
               <span class="form__validation form__name-validation"></span>
@@ -97,12 +97,48 @@
                 maxlength="200"
                 type="text"
                 id="profession"
-                name="profession"
+                name="about"
                 required
               />
               <span class="form__validation form__profession-validation"></span>
             </div>
             <button class="form__button-submit" type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="form form-avatar">
+      <div class="form__overlay form-avatar__overlay">
+        <div class="form__container">
+          <button class="form__close-button form-avatar__close-button">
+            <img
+              class="form__close-icon"
+              src="images/close_icon.png"
+              alt="icone de fechar"
+            />
+          </button>
+          <form class="form__content form-avatar__content">
+            <h2 class="form__title">Alterar a foto de perfil</h2>
+            <form class="form__group">
+              <div class="form__input-wrapper">
+                <input
+                  class="form__item form__url"
+                  placeholder="Link"
+                  type="url"
+                  id="url"
+                  name="url"
+                  required
+                />
+                <span class="form__validation form__url-validation"></span>
+              </div>
+              <button
+                class="form__button-submit form-add__button-submit"
+                type="submit"
+              >
+                Criar
+              </button>
+            </form>
           </form>
         </div>
       </div>
