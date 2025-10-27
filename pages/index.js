@@ -12,13 +12,13 @@ import {
   createButton,
   footerCopy,
   currentYear,
+  formValidationConfig,
 } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
-import { formValidationConfig } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 
-// ==================== CONEXÃO COM A API ====================
+// ==================== API ====================
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
   headers: {
@@ -28,8 +28,7 @@ const api = new Api({
 });
 
 // ==================== VALIDAÇÃO ====================
-const formValidator = new FormValidator(formValidationConfig);
-formValidator.enableValidation();
+new FormValidator(formValidationConfig).enableValidation();
 
 // ==================== PERFIL ====================
 const userInfo = new UserInfo(
@@ -39,60 +38,56 @@ const userInfo = new UserInfo(
 
 // ==================== POPUPS ====================
 
+// 🟢 Confirm Popup corrigido para usar setSubmitAction
+const confirmPopup = new PopupWithForm(".confirm-popup__overlay", () => {});
+confirmPopup.setEventListeners();
+
+// 🟢 Função limpa e profissional para abrir popup de confirmação
+function openConfirmPopup(action) {
+  confirmPopup.setSubmitAction(() => {
+    action();
+    confirmPopup.close();
+  });
+  confirmPopup.open();
+}
+
 // Popup de perfil
 const profilePopup = new PopupWithForm(".form__overlay", (formValues) => {
-  const name = formValues.name;
-  const about = formValues.about;
-
   api
-    .editProfileinfo(name, about)
+    .editProfileinfo(formValues.name, formValues.about)
     .then((data) => {
       userInfo.setUserInfo(data.name, data.about);
       profilePopup.close();
     })
-    .catch((err) => {
-      console.error("Erro ao atualizar perfil:", err);
-    });
+    .catch(console.error);
 });
 profilePopup.setEventListeners();
 
 // Popup de adicionar card
 const addCardPopup = new PopupWithForm(".form-add__overlay", (formValues) => {
-  const name = formValues.place;
-  const link = formValues.url;
-
   api
-    .createCard({ name, link })
+    .createCard({ name: formValues.place, link: formValues.url })
     .then((cardData) => {
-      const card = createCardInstance(cardData);
-      cardList.addItem(card.addCard());
+      cardList.addItem(createCardInstance(cardData).addCard());
       addCardPopup.close();
     })
-    .catch((err) => {
-      console.error("Erro ao criar card:", err);
-    });
+    .catch(console.error);
 });
 addCardPopup.setEventListeners();
 
 // Popup alterar avatar
-
 const avatarFormPopup = new PopupWithForm(
   ".form-avatar__overlay",
   (formValues) => {
-    const link = formValues.url;
-    console.log("Novo link:", link);
-
-    api.editProfileAvatar(link).then((data) => {
-      profileAvatar.setAttribute("src", data.avatar);
-    });
+    api
+      .editProfileAvatar(formValues.url)
+      .then((data) => (profileAvatar.src = data.avatar))
+      .catch(console.error);
   }
 );
-
 avatarFormPopup.setEventListeners();
 
-profileAvatar.addEventListener("click", () => {
-  avatarFormPopup.open();
-});
+profileAvatar.addEventListener("click", () => avatarFormPopup.open());
 
 // Popup de imagem
 const imagePopup = new PopupWithImage(".image-popup__overlay");
@@ -101,55 +96,51 @@ imagePopup.setEventListeners();
 // ==================== EVENTOS DE PERFIL ====================
 editButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
-
   editName.value = userData.userName;
   editProfession.value = userData.userProfession;
   profilePopup.open();
 });
 
 // ==================== CARDS ====================
-
-// Criação da Section para os cards
 const cardList = new Section({ items: [] }, cardsConfig.containerSelector);
 
-// Função utilitária para criar uma instância de Card com todos os handlers
 function createCardInstance(cardData) {
   return new Card(
     cardData,
     (name, link) => imagePopup.open({ name, link }),
     (cardInstance) => {
-      const currentlyLiked = cardInstance._isLiked;
       api
-        .toggleLike(cardInstance._id, currentlyLiked)
-        .then((updatedCard) => {
-          cardInstance.updateLikeState(updatedCard.isLiked);
-        })
-        .catch((err) => console.error("Erro ao alternar curtida:", err));
+        .toggleLike(cardInstance._id, cardInstance._isLiked)
+        .then((updatedCard) =>
+          cardInstance.updateLikeState(updatedCard.isLiked)
+        )
+        .catch(console.error);
     },
+    // 🟢 Aqui o confirmPopup é usado corretamente
     (cardInstance) => {
-      api
-        .removeCard(cardInstance._id)
-        .then(() => {
-          cardInstance.deleteCard();
-        })
-        .catch((err) => console.error("Erro ao deletar o cartão:", err));
+      openConfirmPopup(() => {
+        api
+          .removeCard(cardInstance._id)
+          .then(() => cardInstance.deleteCard())
+          .catch(console.error);
+      });
     }
   );
 }
 
-// Busca os dados iniciais da API
+// ==================== API INITIAL LOAD ====================
 api
   .getAppInfo()
   .then(([cards, userData]) => {
-    profileAvatar.setAttribute("src", userData.avatar);
+    profileAvatar.src = userData.avatar;
     userInfo.setUserInfo(userData.name, userData.about);
-    cardList.setRenderer((cardData) => {
-      const card = createCardInstance(cardData);
-      cardList.addItem(card.addCard());
-    });
+
+    cardList.setRenderer((cardData) =>
+      cardList.addItem(createCardInstance(cardData).addCard())
+    );
     cardList.renderItems([...cards].reverse());
   })
-  .catch((err) => console.error("Erro ao carregar dados iniciais:", err));
+  .catch(console.error);
 
 // ==================== EVENTOS DE CARDS ====================
 createButton.addEventListener("click", () => addCardPopup.open());

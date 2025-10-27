@@ -243,6 +243,33 @@
       </div>
     </template>
 
+    <section class="confirm-popup form">
+      <div class="form__overlay confirm-popup__overlay">
+        <div class="form__container confirm-popup__container">
+          <button class="form__close-button confirm-popup__close-button">
+            <img
+              class="form__close-icon"
+              src="images/close_icon.png"
+              alt="icone de fechar"
+            />
+          </button>
+
+          <form class="form__content confirm-popup__content confirm-form">
+            <h2 class="form__title confirm-popup__title">Tem certeza?</h2>
+
+            <div class="form__group">
+              <button
+                class="form__button-submit confirm-popup__button-submit"
+                type="submit"
+              >
+                Sim
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
