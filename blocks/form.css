@@ -47,6 +47,7 @@
 }
 
 .confirm-popup__container {
+  position: relative;
   max-width: 430px;
   max-height: 181px;
   width: 430px;
@@ -57,6 +58,18 @@
   margin: auto;
   display: flex;
   flex-direction: column;
+}
+.confirm-popup__close-button {
+  position: absolute;
+  max-width: 40px;
+  max-height: 40px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  top: -40px;
+  right: -40px;
 }
 
 .confirm-popup__title {
@@ -193,6 +206,12 @@
 }
 
 @media screen and (max-width: 320px) {
+  .confirm-popup__close-button {
+    max-width: 26px;
+    max-height: 26px;
+    right: 0;
+    bottom: 5px;
+  }
   .form__overlay.visible {
     display: grid;
     place-items: center;
