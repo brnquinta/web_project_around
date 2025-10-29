@@ -24,17 +24,48 @@
   flex-direction: column;
 }
 
+.confirm-popup__content {
+  display: flex;
+  width: auto;
+  height: auto;
+  position: fixed;
+  justify-self: center;
+  align-self: center;
+  flex-direction: column;
+}
+
 .form__content {
   max-width: 430px;
   max-height: 330px;
   width: 430px;
-  height: 330px;
+  background-color: white;
+  border-radius: 20px;
+  z-index: 999;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirm-popup__container {
+  max-width: 430px;
+  max-height: 181px;
+  width: 430px;
+  height: 181px;
   background-color: white;
   border-radius: 20px;
   z-index: 999;
   margin: auto;
   display: flex;
   flex-direction: column;
+}
+
+.confirm-popup__title {
+  margin: 34px 64px 38px 36px;
+  font-family: Inter, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0;
 }
 
 .form__title {
@@ -104,6 +135,19 @@
 }
 
 .form__button-submit {
+  width: 358px;
+  height: 50.15px;
+  max-width: 358px;
+  max-height: 50.15px;
+  margin: 0 auto 36px auto;
+  justify-self: center;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+}
+
+.confirmation-popup__button {
   width: 358px;
   height: 50.15px;
   max-width: 358px;
