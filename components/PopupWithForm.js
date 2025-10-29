@@ -7,6 +7,21 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
   }
 
+  setLoadingState(isLoading) {
+    if (!this._form) return;
+
+    const submitButton = this._form.querySelector('button[type="submit"]');
+    if (!submitButton) return;
+
+    if (isLoading) {
+      submitButton.textContent = "Salvando...";
+      submitButton.disabled = true;
+    } else {
+      submitButton.textContent = this._submitButtonText;
+      submitButton.disabled = false;
+    }
+  }
+
   setSubmitAction(newAction) {
     this._handleFormSubmit = newAction;
   }

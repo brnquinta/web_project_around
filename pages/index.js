@@ -41,18 +41,9 @@ const userInfo = new UserInfo(
 
 // ==================== POPUPS ====================
 
-// 🟢 Confirm Popup corrigido para usar setSubmitAction
+// confirmPopup
 const confirmPopup = new PopupWithForm(".confirm-popup__overlay", () => {});
 confirmPopup.setEventListeners();
-
-// 🟢 Função limpa e profissional para abrir popup de confirmação
-function openConfirmPopup(action) {
-  confirmPopup.setSubmitAction(() => {
-    action();
-    confirmPopup.close();
-  });
-  confirmPopup.open();
-}
 
 // Popup de perfil
 const profilePopup = new PopupWithForm(".form__overlay", (formValues) => {
@@ -68,13 +59,17 @@ profilePopup.setEventListeners();
 
 // Popup de adicionar card
 const addCardPopup = new PopupWithForm(".form-add__overlay", (formValues) => {
+  addCardPopup.setLoadingState(true);
   api
     .createCard({ name: formValues.place, link: formValues.url })
     .then((cardData) => {
       cardList.addItem(createCardInstance(cardData).addCard());
       addCardPopup.close();
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      addCardPopup.setLoadingState(false);
+    });
 });
 addCardPopup.setEventListeners();
 
